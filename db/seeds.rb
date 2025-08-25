@@ -7,3 +7,16 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# Create sample affirmations
+affirmations = [
+  "I am capable of achieving great things",
+  "Every day I grow stronger and wiser",
+  "I choose to be confident and positive",
+  "My potential is limitless",
+  "I am worthy of love and respect"
+]
+
+affirmations.each do |content|
+  Affirmation.find_or_create_by!(content: content)
+end
