@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   root "affirmations#index"
 
   resources :affirmations, only: [ :index ]
+  get "random" => "affirmations#random", as: :random_affirmation
+  get "ai" => "affirmations#ai", as: :ai_affirmation
 end

@@ -1,0 +1,58 @@
+<div class="max-w-4xl mx-auto p-6">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">🤖 AI Affirmation Generator</h1>
+    <p class="text-lg text-gray-600">Let AI create a personalized positive affirmation just for you</p>
+  </div>
+  
+  <div class="max-w-2xl mx-auto">
+    <% if @error %>
+      <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+        <p class="text-red-800"><%= @error %></p>
+      </div>
+    <% end %>
+    
+    <% if @ai_affirmation %>
+      <div class="bg-gradient-to-br from-purple-50 to-pink-100 border-2 border-purple-200 p-12 rounded-2xl shadow-lg text-center mb-8">
+        <div class="mb-6">
+          <p class="text-3xl font-medium text-gray-800 leading-relaxed italic">
+            <%= @ai_affirmation %>
+          </p>
+        </div>
+        
+        <div class="space-x-4">
+          <%= link_to "Generate Another", ai_affirmation_path(generate: true), 
+              class: "inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+          <%= link_to "Save This Affirmation", "#", 
+              class: "inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+        </div>
+      </div>
+    <% end %>
+    
+    <% if @ai_affirmation.blank? %>
+      <div class="bg-white border border-gray-200 rounded-lg p-8 shadow-sm">
+        <div class="text-center">
+          <h2 class="text-2xl font-semibold text-gray-800 mb-4">Generate Your Affirmation</h2>
+          <p class="text-gray-600 mb-6">
+            Click the button below to have AI create a unique, uplifting affirmation tailored for you.
+          </p>
+        
+          <%= link_to "✨ Generate Affirmation", ai_affirmation_path(generate: true), 
+              class: "inline-block bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-200 transform hover:scale-105 shadow-lg" %>
+        
+          <div class="mt-6 text-sm text-gray-500">
+            <p>💡 Each generation creates a unique affirmation</p>
+            <p>🔒 Your prompts are not stored or shared</p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
+    <div class="mt-8 text-center">
+      <%= link_to "🎲 Get Random Affirmation", random_affirmation_path, 
+          class: "inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 mr-4" %>
+      <%= link_to "📋 View All Affirmations", root_path, 
+          class: "inline-block bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+    </div>
+  </div>
+</div>
+
