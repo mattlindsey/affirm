@@ -10,9 +10,11 @@ Rails.application.routes.draw do
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
 
   # Defines the root path route ("/")
-  root "affirmations#index"
+  root "home#index"
 
   resources :affirmations, only: [ :index ]
+  get "gratitude" => "gratitude#index", as: :gratitude
+  get "gratitude/random" => "gratitude#random", as: :gratitude_random
   get "random" => "affirmations#random", as: :random_affirmation
   get "ai" => "affirmations#ai", as: :ai_affirmation
 end
