@@ -24,7 +24,24 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <main class="container mx-auto mt-28 px-5 flex flex-col">
+      <% if breadcrumbs.any? %>
+        <nav aria-label="Breadcrumb" class="w-full mb-4 text-sm text-gray-600">
+          <ol class="flex flex-wrap items-center gap-2">
+            <% breadcrumbs.each_with_index do |crumb, index| %>
+              <% is_last = index == breadcrumbs.size - 1 %>
+              <li class="flex items-center">
+                <% if is_last %>
+                  <span class="font-medium text-gray-900"><%= crumb[:name] %></span>
+                <% else %>
+                  <%= link_to crumb[:name], crumb[:path], class: "hover:underline text-blue-600" %>
+                  <span class="mx-2 text-gray-400">/</span>
+                <% end %>
+              </li>
+            <% end %>
+          </ol>
+        </nav>
+      <% end %>
       <%= yield %>
     </main>
   </body>
