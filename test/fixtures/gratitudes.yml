@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content: I am grateful for the beautiful weather today
+
+two:
+  content: I am grateful for my supportive family
+
+three:
+  content: I am grateful for good health and energy
+
+four:
+  content: I am grateful for the opportunity to learn and grow
