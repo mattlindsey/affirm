@@ -7,6 +7,20 @@ class GratitudeController < ApplicationController
     @gratitude = Gratitude.order("RANDOM()").first
   end
 
+  def prompt
+    @prompts = [
+      "Who are you grateful for this week?",
+      "What experience made you smile today?",
+      "What's something you're looking forward to?",
+      "What's a small joy you experienced recently?",
+      "Who has helped you recently and how?",
+      "What's something beautiful you noticed today?",
+      "What's a challenge you're grateful to have overcome?",
+      "What's something you love about where you live?"
+    ]
+    @current_prompt = @prompts.sample
+  end
+
   def create
     # Simple action to render the form
   end
@@ -40,5 +54,12 @@ class GratitudeController < ApplicationController
 
   def gratitude_params
     params.require(:gratitude).permit(contents: [])
+  end
+
+  def ai
+    if params[:generate]
+      @ai_prompt = Gratitude.generate_ai_prompt
+      @error = @ai_affirmation ? nil : "Unable to generate prompt. Please check your API key and try again."
+    end
   end
 end

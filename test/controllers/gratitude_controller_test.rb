@@ -11,12 +11,23 @@ class GratitudeControllerTest < ActionDispatch::IntegrationTest
     assert_select "h1", "Gratitude"
     assert_select "a", "📝 Create todays gratitudes"
     assert_select "a", "🎲 Get Random Gratitude"
+    assert_select "a", "🎯 Random Prompt"
   end
 
   test "should get random gratitude" do
     get gratitude_random_path
     assert_response :success
     assert_select "h1", "Random Gratitude"
+  end
+
+  test "should get prompt page" do
+    get gratitude_prompt_path
+    assert_response :success
+    assert_select "h1", "Random Gratitude Prompt"
+    assert_select "form[action='#{store_gratitude_path}'][method='post']"
+    assert_select "textarea[name='gratitude[contents][]']"
+    assert_select "input[type='submit'][value='Save Response']"
+    assert_select "a[href='#{gratitude_path}']", "← Back to Gratitude"
   end
 
   test "should get create page" do

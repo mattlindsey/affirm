@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :affirmations, only: [ :index ]
   get "gratitude" => "gratitude#index", as: :gratitude
   get "gratitude/random" => "gratitude#random", as: :gratitude_random
+  get "gratitude/prompt" => "gratitude#prompt", as: :gratitude_prompt
   get "gratitude/create" => "gratitude#create", as: :create_gratitude
   post "gratitude" => "gratitude#store", as: :store_gratitude
   get "affirmations/random" => "affirmations#random", as: :random_affirmation
