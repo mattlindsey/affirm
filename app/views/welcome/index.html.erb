@@ -1,0 +1,139 @@
+<div class="max-w-4xl mx-auto p-6">
+  <!-- Welcome Header -->
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome Back!</h1>
+    <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl border border-blue-200">
+      <p class="text-xl text-gray-700 leading-relaxed">
+        <%= @greeting.message %>
+      </p>
+    </div>
+  </div>
+
+  <!-- Mood Check-in Section -->
+  <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">How are you feeling today?</h2>
+    
+    <%= form_with model: @mood_check_in, url: welcome_mood_path, local: true, class: "space-y-6" do |form| %>
+      <!-- Emoji Slider -->
+      <div class="text-center">
+        <div class="mb-4">
+          <label class="block text-lg font-medium text-gray-700 mb-2">
+            Rate your mood (1-10)
+          </label>
+          <div class="flex items-center justify-center space-x-2 mb-4">
+            <span class="text-2xl">😢</span>
+            <input 
+              type="range" 
+              name="mood_check_in[mood_level]" 
+              min="1" 
+              max="10" 
+              value="5" 
+              class="w-64 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+              id="mood-slider"
+            />
+            <span class="text-2xl">😄</span>
+          </div>
+          <div class="flex justify-between text-sm text-gray-500 w-64 mx-auto">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+            <span>10</span>
+          </div>
+        </div>
+        
+        <!-- Mood Display -->
+        <div class="mb-6">
+          <div class="text-4xl mb-2" id="mood-emoji">😐</div>
+          <p class="text-lg text-gray-600" id="mood-description">Neutral</p>
+        </div>
+      </div>
+
+      <!-- Optional Notes -->
+      <div>
+        <label class="block text-lg font-medium text-gray-700 mb-2">
+          Any thoughts you'd like to share? (optional)
+        </label>
+        <%= form.text_area :notes, 
+            class: "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none",
+            rows: 3,
+            placeholder: "What's on your mind today?" %>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <%= form.submit "Check In", 
+            class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 text-lg" %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <%= link_to "📝 Create Gratitudes", create_gratitude_path, 
+        class: "bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-center" %>
+    <%= link_to "🎲 Random Gratitude", gratitude_random_path, 
+        class: "bg-purple-600 hover:bg-purple-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-center" %>
+    <%= link_to "🎯 Gratitude Prompts", gratitude_prompt_path, 
+        class: "bg-orange-600 hover:bg-orange-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-center" %>
+  </div>
+</div>
+
+<script>
+  // Mood slider interaction
+  const slider = document.getElementById('mood-slider');
+  const emoji = document.getElementById('mood-emoji');
+  const description = document.getElementById('mood-description');
+
+  const moodData = {
+    1: { emoji: '😢', description: 'Having a tough time' },
+    2: { emoji: '😢', description: 'Having a tough time' },
+    3: { emoji: '😔', description: 'Feeling low' },
+    4: { emoji: '😔', description: 'Feeling low' },
+    5: { emoji: '😐', description: 'Neutral' },
+    6: { emoji: '😐', description: 'Neutral' },
+    7: { emoji: '😊', description: 'Feeling good' },
+    8: { emoji: '😊', description: 'Feeling good' },
+    9: { emoji: '😄', description: 'Feeling amazing' },
+    10: { emoji: '😄', description: 'Feeling amazing' }
+  };
+
+  function updateMoodDisplay() {
+    const value = parseInt(slider.value);
+    const mood = moodData[value];
+    emoji.textContent = mood.emoji;
+    description.textContent = mood.description;
+  }
+
+  slider.addEventListener('input', updateMoodDisplay);
+  
+  // Initialize display
+  updateMoodDisplay();
+</script>
+
+<style>
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3B82F6;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3B82F6;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+</style>

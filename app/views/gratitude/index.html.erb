@@ -1,13 +1,15 @@
 <div class="max-w-4xl mx-auto p-6">
   <div class="text-center mb-8">
     <h1 class="text-4xl font-bold text-gray-800 mb-4">Gratitude</h1>
-    <div class="mb-6 space-x-4">
-            <%= link_to "🎲 Get Random Gratitude", gratitude_random_path, 
-          class: "inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+    <div class="mb-6 flex flex-wrap justify-center gap-4">
+      <%= link_to "🌅 Quick Check-in", welcome_path, 
+          class: "bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+      <%= link_to "🎲 Get Random Gratitude", gratitude_random_path, 
+          class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
       <%= link_to "📝 Create todays gratitudes", create_gratitude_path, 
-          class: "inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+          class: "bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
       <%= link_to "🎯 Random Prompt", gratitude_prompt_path, 
-          class: "inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+          class: "bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
     </div>
   </div>
 

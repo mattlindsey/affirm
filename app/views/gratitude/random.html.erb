@@ -18,11 +18,11 @@
           Created: <%= @gratitude.created_at.strftime("%B %d, %Y") %>
         </small>
         
-        <div class="space-x-4">
+        <div class="flex justify-center gap-4">
           <%= link_to "Get Another", gratitude_random_path, 
-              class: "inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+              class: "bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
           <%= link_to "View All", gratitude_path, 
-              class: "inline-block bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+              class: "bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
         </div>
       </div>
     </div>
