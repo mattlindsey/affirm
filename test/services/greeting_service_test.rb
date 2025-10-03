@@ -7,7 +7,7 @@ class GreetingServiceTest < ActiveSupport::TestCase
 
   test "should return greeting with time-based message" do
     greeting = @service.call
-    
+
     assert_instance_of Greeting, greeting
     assert greeting.message.present?
     assert greeting.message.include?("Good")
@@ -45,9 +45,9 @@ class GreetingServiceTest < ActiveSupport::TestCase
     # Create a gratitude from yesterday
     yesterday_gratitude = Gratitude.create!(content: "coffee with Sarah")
     yesterday_gratitude.update_column(:created_at, 1.day.ago)
-    
+
     greeting = @service.call
-    
+
     assert greeting.has_past_gratitude?
     assert greeting.message.include?("coffee with Sarah")
     assert greeting.message.include?("☕")
@@ -56,9 +56,9 @@ class GreetingServiceTest < ActiveSupport::TestCase
   test "should include inspirational quote when no past gratitude" do
     # Ensure no gratitudes exist
     Gratitude.destroy_all
-    
+
     greeting = @service.call
-    
+
     assert_not greeting.has_past_gratitude?
     assert greeting.message.present?
     # Should contain one of the inspirational quotes
@@ -78,10 +78,10 @@ class GreetingServiceTest < ActiveSupport::TestCase
     def custom_repository.yesterday_gratitude
       nil
     end
-    
+
     service = GreetingService.new(gratitude_repository: custom_repository)
     greeting = service.call
-    
+
     assert_instance_of Greeting, greeting
   end
 end

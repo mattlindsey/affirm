@@ -9,8 +9,3 @@ class GratitudeRepository
     Gratitude.order(created_at: :desc).limit(limit)
   end
 end
-
-
-
-
-

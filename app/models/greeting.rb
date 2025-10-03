@@ -10,8 +10,3 @@ class Greeting
     past_gratitude.present?
   end
 end
-
-
-
-
-
