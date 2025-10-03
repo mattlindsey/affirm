@@ -21,3 +21,8 @@ class WelcomeController < ApplicationController
     params.require(:mood_check_in).permit(:mood_level, :notes)
   end
 end
+
+
+
+
+
