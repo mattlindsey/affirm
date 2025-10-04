@@ -13,4 +13,10 @@ class AffirmationsController < ApplicationController
       @error = @ai_affirmation ? nil : "Unable to generate affirmation. Please check your API key and try again."
     end
   end
+
+  def destroy
+    @affirmation = Affirmation.find(params[:id])
+    @affirmation.destroy
+    redirect_to affirmations_path, notice: "Affirmation was successfully deleted."
+  end
 end
