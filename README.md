@@ -60,6 +60,7 @@ Now you're ready to run the tests:
 
 ```bash
 bin/rails test
+bin/rails test:system
 ```
 
 ### Step 5: To use optional AI features set your OpenAI key using export (do NOT put the keys directly in your code!)
