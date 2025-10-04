@@ -1,12 +1,13 @@
 # Affirmations README
 
-This project is for learning purposes and can be used to see positive daily Affirmations, record Gratifications, and record mood.
+This project is for learning purposes and can be used to see positive daily Affirmations, record Gratifications, and record Mood.
 
 # Contributing
 
 See [CONTRIBUTING.md](https://github.com/mattlindsey/affirm/blob/main/CONTRIBUTING.md).
 
 Working with this project is a good way to learn Ruby on Rails and AI LLMs (Large Language Models)!
+I did design the app and do the first few commits on this using AI, but I'm hoping people will enjoy the idea behind it and use it to learn Rails and not just use AI tools to do everything.  I will try to respond relatively promptly to all contributions.
 
 # Setting Up for Development
 
@@ -32,7 +33,7 @@ You'll do your development work on your own forked copy of the project, so hit t
    git fetch upstream
    ```
 
-3. Updating your fork frequently from original repo to keep it up to date
+3. Update your fork frequently from original repo to keep it up to date
 
    ```bash
    git pull upstream main
@@ -61,7 +62,7 @@ Now you're ready to run the tests:
 bin/rails test
 ```
 
-### Step 5: To use AI features set your OpenAI key using export (do NOT put the keys directly in your code!)
+### Step 5: To use optional AI features set your OpenAI key using export (do NOT put the keys directly in your code!)
 
 ```bash
 export OPENAI_API_KEY=sk-key
@@ -84,4 +85,4 @@ bundle exec rubocop
 bundle exec rubocop -A  (to auto fix any problems)
 ```
 
-We recommend following the [Ruby Style Guide](https://github.com/rubocop-hq/ruby-style-guide)
+I recommend following the [Ruby Style Guide](https://github.com/rubocop-hq/ruby-style-guide)
