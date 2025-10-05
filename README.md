@@ -7,11 +7,9 @@ This project is for learning purposes and can be used to see positive daily Affi
 See [CONTRIBUTING.md](https://github.com/mattlindsey/affirm/blob/4e8f79c020bb197cf230048379b995f670f87733/CONTRIBUTING.MD)
 
 Working with this project is a good way to learn Ruby on Rails and AI LLMs (Large Language Models)!
-I did design the app and do the first few commits on this using AI, but I'm hoping people will enjoy the idea behind it and use it to learn Rails and not just use AI tools to do everything.  I will try to respond relatively promptly to all contributions.
+I did design the app and do the first few commits on this using AI, but I'm hoping people will enjoy the idea behind it and use it to learn Rails and not just use AI tools to do everything.  I will try to respond relatively promptly to people.
 
-Since this is a learning exercise, please ask in the Issue to be assigned first before working on anything and submitting a PR.
-
-I recommend not working on any Issue that has been assigned, worked on, merged, and closed.  I have a hard time keeping up with some of the contributions.
+Since this is a learning exercise, please ask in the Issue to be assigned first before working on anything and submitting a PR.  I intend to only merge PRs from the first person who asks, and please don't ask for more than 1 issue at a time.
 
 # Setting Up for Development
 
