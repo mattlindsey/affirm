@@ -49,11 +49,8 @@ bundle install
 
 ### Step 3: Set up the database and seed data
 
-Run these commands;
-
 ```bash
 bin/rails db:setup
-bin/rails db:seed
 ```
 
 ### Step 4: Run the tests
