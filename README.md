@@ -11,6 +11,8 @@ I did design the app and do the first few commits on this using AI, but I'm hopi
 
 Since this is a learning exercise, please ask in the Issue to be assigned first before working on anything and submitting a PR.
 
+I recommend not working on any Issue that has been assigned, worked on, merged, and closed.  I have a hard time keeping up with some of the contributions.
+
 # Setting Up for Development
 
 These are the steps for setting up your development environment locally.
