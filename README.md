@@ -9,6 +9,8 @@ See [CONTRIBUTING.md](https://github.com/mattlindsey/affirm/blob/main/CONTRIBUTI
 Working with this project is a good way to learn Ruby on Rails and AI LLMs (Large Language Models)!
 I did design the app and do the first few commits on this using AI, but I'm hoping people will enjoy the idea behind it and use it to learn Rails and not just use AI tools to do everything.  I will try to respond relatively promptly to all contributions.
 
+Since this is a learning exercise, please ask in the Issue to be assigned first before working on anything and submitting a PR.
+
 # Setting Up for Development
 
 These are the steps for setting up your development environment locally.
