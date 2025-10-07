@@ -4,29 +4,27 @@
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
     <%= link_to welcome_path, class: "block group" do %>
-      <div class="border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition bg-white">
+      <div class="border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition bg-white flex flex-col h-full">
         <div class="text-3xl mb-3">🌅</div>
-        <h2 class="text-2xl font-semibold text-gray-800 group-hover:text-gray-900">Quick Check-in</h2>
-        <p class="text-gray-600 mt-2">Start your day with a mood check-in</p>
+        <h2 class="text-2xl font-semibold text-gray-800 group-hover:text-gray-900 mb-2">Quick Check-in</h2>
+        <p class="text-gray-600 mt-auto">Start your day with a mood check-in</p>
       </div>
     <% end %>
 
     <%= link_to affirmations_path, class: "block group" do %>
-      <div class="border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition bg-white">
+      <div class="border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition bg-white flex flex-col h-full">
         <div class="text-3xl mb-3">📋</div>
-        <h2 class="text-2xl font-semibold text-gray-800 group-hover:text-gray-900">Affirmations</h2>
-        <p class="text-gray-600 mt-2">Browse or generate positive affirmations</p>
+        <h2 class="text-2xl font-semibold text-gray-800 group-hover:text-gray-900 mb-2">Affirmations</h2>
+        <p class="text-gray-600 mt-auto">Browse or generate positive affirmations</p>
       </div>
     <% end %>
 
     <%= link_to gratitude_path, class: "block group" do %>
-      <div class="border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition bg-white">
+      <div class="border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition bg-white flex flex-col h-full">
         <div class="text-3xl mb-3">🙏</div>
-        <h2 class="text-2xl font-semibold text-gray-800 group-hover:text-gray-900">Gratitude</h2>
-        <p class="text-gray-600 mt-2">Capture and reflect on moments of gratitude</p>
+        <h2 class="text-2xl font-semibold text-gray-800 group-hover:text-gray-900 mb-2">Gratitude</h2>
+        <p class="text-gray-600 mt-auto">Capture and reflect on moments of gratitude</p>
       </div>
     <% end %>
   </div>
 </div>
-
-
