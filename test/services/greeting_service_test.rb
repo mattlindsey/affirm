@@ -84,4 +84,15 @@ class GreetingServiceTest < ActiveSupport::TestCase
 
     assert_instance_of Greeting, greeting
   end
+
+  test "provides separated greeting components" do
+    travel_to Time.zone.parse("2024-01-01 09:00:00") do
+      greeting = @service.call
+
+      assert_equal "Good morning!", greeting.time_based_message
+      assert greeting.personalized_message.present?
+      assert_equal "#{greeting.time_based_message} #{greeting.personalized_message}", greeting.message
+    end
+  end
 end
+
