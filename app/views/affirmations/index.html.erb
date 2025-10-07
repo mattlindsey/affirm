@@ -1,31 +1,34 @@
-<div class="max-w-4xl mx-auto p-6">
-  <div class="text-center mb-8">
-    <h1 class="text-4xl font-bold text-gray-800 mb-4">Daily Affirmations</h1>
-    <div class="mb-6 space-x-4">
+<div class="max-w-4xl mx-auto p-4 sm:p-6">
+  <!-- Header -->
+  <div class="text-center mb-6 sm:mb-8">
+    <h1 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">Daily Affirmations</h1>
+    <div class="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4">
       <%= link_to "🎲 Get Random Affirmation", random_affirmation_path, 
-          class: "inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+          class: "w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-sm sm:text-base text-center" %>
       <%= link_to "🤖 Get AI Generated Affirmation", ai_affirmation_path, 
-          class: "inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+          class: "w-full sm:w-auto bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-sm sm:text-base text-center" %>
     </div>
   </div>
-  
+
   <% if @affirmations.any? %>
-    <div class="space-y-6">
+    <div class="space-y-4 sm:space-y-6">
       <% @affirmations.each do |affirmation| %>
-        <div class="bg-gray-50 border-l-4 border-blue-500 p-6 rounded-r-lg shadow-md hover:shadow-lg transition-shadow duration-200">
-          <div class="flex justify-between items-start">
+        <div class="bg-gray-50 border-l-4 border-blue-500 p-4 sm:p-6 rounded-r-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
             <div class="flex-1">
-              <p class="text-lg text-gray-800 leading-relaxed mb-3"><%= affirmation.content %></p>
-              <small class="text-sm text-gray-500">Created: <%= affirmation.created_at.strftime("%B %d, %Y") %></small>
+              <p class="text-base sm:text-lg text-gray-800 leading-relaxed mb-2 sm:mb-3"><%= affirmation.content %></p>
+              <small class="text-xs sm:text-sm text-gray-500 block">Created: <%= affirmation.created_at.strftime("%B %d, %Y") %></small>
             </div>
             <%= button_to "Delete", affirmation_path(affirmation), method: :delete,
                 data: { turbo_confirm: "Are you sure you want to delete this affirmation?" },
-                class: "ml-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200" %>
+                class: "w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200 text-sm sm:text-base mt-2 sm:mt-0" %>
           </div>
         </div>
       <% end %>
     </div>
   <% else %>
-    <p class="text-center text-gray-500 italic text-lg mt-10">No affirmations yet. Add some positive thoughts to get started!</p>
+    <p class="text-center text-gray-500 italic text-base sm:text-lg mt-6 sm:mt-10">
+      No affirmations yet. Add some positive thoughts to get started!
+    </p>
   <% end %>
 </div>
