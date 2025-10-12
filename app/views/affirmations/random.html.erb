@@ -1,33 +1,33 @@
-<div class="max-w-4xl mx-auto p-6">
-  <div class="text-center mb-8">
-    <h1 class="text-4xl font-bold text-gray-800 mb-4">Random Affirmation</h1>
-    <p class="text-lg text-gray-600">Here's your daily dose of positivity</p>
+<div class="max-w-4xl mx-auto p-4 sm:p-6">
+  <!-- Header -->
+  <div class="text-center mb-6 sm:mb-8">
+    <h1 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">Random Affirmation</h1>
+    <p class="text-base sm:text-lg text-gray-600">Here's your daily dose of positivity</p>
   </div>
-  
+
   <% if @affirmation %>
-    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 border-2 border-blue-200 p-12 rounded-2xl shadow-lg text-center">
-      <div class="max-w-2xl mx-auto">
-        <p class="text-3xl font-medium text-gray-800 leading-relaxed mb-6 italic">
+    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 border-2 border-blue-200 p-6 sm:p-12 rounded-2xl shadow-lg text-center">
+      <div class="max-w-xl mx-auto">
+        <p class="text-xl sm:text-3xl font-medium text-gray-800 leading-relaxed mb-4 sm:mb-6 italic">
           "<%= @affirmation.content %>"
         </p>
-        <small class="text-sm text-gray-500 block mb-8">
+        <small class="text-xs sm:text-sm text-gray-500 block mb-4 sm:mb-8">
           Created: <%= @affirmation.created_at.strftime("%B %d, %Y") %>
         </small>
-        
-        <div class="space-x-4">
+
+        <div class="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4">
           <%= link_to "Get Another", random_affirmation_path, 
-              class: "inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+              class: "w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center" %>
           <%= link_to "View All", affirmations_path, 
-              class: "inline-block bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+              class: "w-full sm:w-auto bg-gray-600 hover:bg-gray-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center" %>
         </div>
       </div>
     </div>
   <% else %>
     <div class="text-center">
-      <p class="text-xl text-gray-600 mb-6">No affirmations available yet.</p>
+      <p class="text-base sm:text-xl text-gray-600 mb-4 sm:mb-6">No affirmations available yet.</p>
       <%= link_to "Add Some Affirmations", affirmations_path, 
-          class: "inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+          class: "w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200 text-center" %>
     </div>
   <% end %>
 </div>
-
