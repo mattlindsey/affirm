@@ -5,7 +5,9 @@ class GreetingService
 
   def call
     Greeting.new(
-      message: greeting_message,
+      message: full_message,
+      time_based_message: time_based_greeting,
+      personalized_message: personalized_message,
       past_gratitude: past_gratitude
     )
   end
@@ -14,8 +16,8 @@ class GreetingService
 
   attr_reader :gratitude_repository
 
-  def greeting_message
-    time_based_greeting + " " + personalized_message
+  def full_message
+    "#{time_based_greeting} #{personalized_message}"
   end
 
   def time_based_greeting
