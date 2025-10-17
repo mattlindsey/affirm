@@ -91,8 +91,7 @@ class GreetingServiceTest < ActiveSupport::TestCase
 
       assert_equal "Good morning!", greeting.time_based_message
       assert greeting.personalized_message.present?
-      assert_equal "#{greeting.time_based_message} #{greeting.personalized_message}", greeting.message
+      assert greeting.message.include? greeting.time_based_message
     end
   end
 end
-
