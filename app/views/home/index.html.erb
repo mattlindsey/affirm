@@ -1,5 +1,5 @@
 <div class="max-w-3xl mx-auto p-6 text-center">
-  <h1 class="text-4xl font-bold text-gray-800 mb-8">Welcome</h1>
+  <h1 class="text-4xl font-bold text-gray-800 mb-8">Welcome<%= @name.present? ? ", #{@name}" : "" %>!</h1>
   <p class="text-lg text-gray-600 mb-10">Choose where you'd like to start</p>
 
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -28,5 +28,3 @@
     <% end %>
   </div>
 </div>
-
-

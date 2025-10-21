@@ -12,6 +12,11 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
+  # Settings routes
+  get "settings", to: "settings#index", as: :settings
+  post "settings", to: "settings#update"
+
+
   # Welcome screen routes
   get "welcome" => "welcome#index", as: :welcome
   post "welcome/mood" => "welcome#create_mood", as: :welcome_mood
