@@ -4,7 +4,8 @@
     <h1 class="text-4xl font-bold text-gray-800 mb-4">Welcome Back!</h1>
     <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl border border-blue-200">
       <p class="text-xl text-gray-700 leading-relaxed">
-        <%= @greeting.message %>
+        <span id="time-greeting"><%= @greeting.time_based_message %></span>
+        <span id="personalized-message"><%= @greeting.personalized_message %></span>
       </p>
     </div>
   </div>
@@ -85,6 +86,24 @@
 </div>
 
 <script>
+  // Localize greeting using browser time
+  const timeGreetingElement = document.getElementById("time-greeting");
+  if (timeGreetingElement) {
+    const localHour = new Date().getHours();
+    let localizedGreeting;
+
+    if (localHour >= 5 && localHour <= 11) {
+      localizedGreeting = "Good morning!";
+    } else if (localHour >= 12 && localHour <= 17) {
+      localizedGreeting = "Good afternoon!";
+    } else if (localHour >= 18 && localHour <= 22) {
+      localizedGreeting = "Good evening!";
+    } else {
+      localizedGreeting = "Good night!";
+    }
+
+    timeGreetingElement.textContent = localizedGreeting;
+  }
   // Mood slider interaction
   const slider = document.getElementById('mood-slider');
   const emoji = document.getElementById('mood-emoji');
@@ -137,8 +156,5 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   }
 </style>
-
-
-
 
 
