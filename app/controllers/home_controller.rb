@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @name = session[:name]
+    @name = Setting.instance.name.presence || session[:name]
   end
 end
