@@ -8,10 +8,11 @@ class GratitudeControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
     get gratitude_path
     assert_response :success
-    assert_select "h1", "Gratitude"
-    assert_select "a", "📝 Create todays gratitudes"
-    assert_select "a", "🎲 Get Random Gratitude"
-    assert_select "a", "🎯 Random Prompt"
+  # view currently uses "Gratitudes" and specific link texts
+  assert_select "h1", "Gratitudes"
+  assert_select "a", "📝 Create Today's Gratitudes"
+  assert_select "a", "🎲 Get Random Gratitude"
+  assert_select "a", "🎯 Random Prompt"
   end
 
   test "should get random gratitude" do

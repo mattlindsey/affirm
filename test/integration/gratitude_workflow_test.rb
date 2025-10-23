@@ -11,9 +11,9 @@ class GratitudeWorkflowTest < ActionDispatch::IntegrationTest
 
   test "complete gratitude creation workflow" do
     # Step 1: Visit the gratitude index page
-    get gratitude_path
-    assert_response :success
-    assert_select "h1", "Gratitude"
+  get gratitude_path
+  assert_response :success
+  assert_select "h1", "Gratitudes"
 
     # Step 2: Click on create gratitudes link
     get create_gratitude_path
