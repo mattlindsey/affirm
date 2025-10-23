@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_01_190426) do
+ActiveRecord::Schema[8.1].define(version: 2025_10_21_225738) do
   create_table "affirmations", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
@@ -24,10 +24,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_01_190426) do
   end
 
   create_table "mood_check_ins", force: :cascade do |t|
+    t.datetime "created_at", null: false
     t.integer "mood_level", null: false
     t.text "notes"
-    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["created_at"], name: "index_mood_check_ins_on_created_at"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
   end
 end
