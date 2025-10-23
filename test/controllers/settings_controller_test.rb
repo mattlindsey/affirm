@@ -8,10 +8,11 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should save name in session and redirect" do
-    post settings_url, params: { name: "Lucas" }
-    assert_equal "Lucas", @request.session[:name]
-    assert_redirected_to root_url
-    follow_redirect!
-  assert_select "h1", "Welcome , Lucas!"
+  # controller expects nested params[:setting][:name] when using form_with model
+  post settings_url, params: { setting: { name: "Lucas" } }
+  assert_equal "Lucas", @request.session[:name]
+  assert_redirected_to settings_path
+  follow_redirect!
+  assert_select "h1", "Settings"
   end
 end

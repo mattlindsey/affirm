@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get "welcome" => "welcome#index", as: :welcome
   post "welcome/mood" => "welcome#create_mood", as: :welcome_mood
 
+  get "checkins" => "checkins#index", as: :checkins
+
   resources :affirmations, only: [ :index, :destroy ]
   get "gratitude" => "gratitude#index", as: :gratitude
   get "gratitude/random" => "gratitude#random", as: :gratitude_random
