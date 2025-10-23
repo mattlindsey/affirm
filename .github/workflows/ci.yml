@@ -75,15 +75,16 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Run tests
+    - name: Run tests
         env:
           RAILS_ENV: test
           # REDIS_URL: redis://localhost:6379/0
         run: |
           # ensure DB and migrations are ready in CI
           bin/rails db:prepare
-          bin/rails db:test:prepare
-          bin/rails test test test:system
+      bin/rails db:test:prepare
+      # Run the full test suite
+      bin/rails test
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
