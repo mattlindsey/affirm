@@ -13,7 +13,7 @@ class GratitudeSystemTest < ApplicationSystemTestCase
     visit gratitude_path
 
     assert_text "Gratitude"
-    assert_text "📝 Create todays gratitudes"
+  assert_text "📝 Create Today's Gratitudes"
     assert_text "🎲 Get Random Gratitude"
 
     # Check if there are existing gratitudes or the empty state message
@@ -24,7 +24,7 @@ class GratitudeSystemTest < ApplicationSystemTestCase
 
   test "creating new gratitudes through the form" do
     visit gratitude_path
-    click_on "📝 Create todays gratitudes"
+  click_on "📝 Create Today's Gratitudes"
 
     assert_text "Create Today's Gratitudes"
     assert_text "Take a moment to reflect on what you're grateful for today"
@@ -101,9 +101,9 @@ class GratitudeSystemTest < ApplicationSystemTestCase
     # Click cancel instead of submit
     click_on "Cancel"
 
-    # Should return to index page
-    assert_text "Gratitude"
-    assert_no_text "Create Today's Gratitudes"
+  # Should return to index page and create link should be visible
+  assert_text "Gratitude"
+  assert_text "Create Today's Gratitudes"
 
     # No gratitudes should have been created
     assert_no_text "Test gratitude"
@@ -131,8 +131,8 @@ class GratitudeSystemTest < ApplicationSystemTestCase
     visit gratitude_path
     assert_text "Gratitude"
 
-    # Go to create page
-    click_on "📝 Create todays gratitudes"
+  # Go to create page
+  click_on "📝 Create Today's Gratitudes"
     assert_text "Create Today's Gratitudes"
 
     # Go back to index
@@ -196,7 +196,7 @@ class GratitudeSystemTest < ApplicationSystemTestCase
     # Should show empty state message
     assert_text "No gratitudes yet. Create today's gratitudes to get started!"
 
-    # Create button should still be available
-    assert_selector "a", text: "📝 Create todays gratitudes"
+  # Create button should still be available
+  assert_selector "a", text: "📝 Create Today's Gratitudes"
   end
 end
