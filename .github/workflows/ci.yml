@@ -82,9 +82,10 @@ jobs:
         run: |
           # ensure DB and migrations are ready in CI
           bin/rails db:prepare
-      bin/rails db:test:prepare
-      # Run the full test suite
-      bin/rails test
+          bin/rails db:test:prepare
+          # Run the full test suite
+          bin/rails test
+          bin/rails test:system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
