@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+/* Styles for checkins chart wrapper */
+.chart-wrapper { overflow: hidden; position: relative; height: 260px; max-width: 820px; width: 100%; margin: 0 auto; padding-bottom: 18px; }
+.chart-wrapper canvas { position: absolute !important; top: 0; left: 0; z-index: 0; display: block; width:100% !important; height:240px !important; max-height:240px !important; }
+@media (min-width: 1100px) {
+	.chart-wrapper { max-width: 1100px; }
+}
+.max-w-5xl .space-y-6 > article { position: relative; z-index: 10 !important; background: #ffffff !important; }
