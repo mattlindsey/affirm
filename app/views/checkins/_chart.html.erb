@@ -1,0 +1,12 @@
+<!-- Checkins chart partial: canvas controlled by Stimulus -->
+<div style="height:240px" class="w-full flex justify-center items-start">
+  <div style="width:100%" class="chart-wrapper">
+    <canvas
+      data-controller="checkins-chart"
+      data-checkins-chart-labels-value='<%= @labels.to_json %>'
+      data-checkins-chart-values-value='<%= @values.to_json %>'
+      style="display:block; width:100%; height:220px; border-radius:6px; border:1px solid rgba(0,0,0,0.04); background:transparent;"
+    ></canvas>
+  <!-- status element removed to avoid overlay; Stimulus will hide if needed -->
+  </div>
+</div>
