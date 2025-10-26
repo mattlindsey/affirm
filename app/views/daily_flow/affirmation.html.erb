@@ -1,0 +1,59 @@
+<div class="max-w-4xl mx-auto p-6">
+  <!-- Progress Indicator -->
+  <div class="mb-8">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
+        <span class="ml-2 text-sm font-medium text-green-600">Check-In</span>
+      </div>
+      <div class="w-12 h-0.5 bg-green-500"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold">2</div>
+        <span class="ml-2 text-sm font-medium text-blue-600">Affirmation</span>
+      </div>
+      <div class="w-12 h-0.5 bg-gray-300"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-semibold">3</div>
+        <span class="ml-2 text-sm font-medium text-gray-400">Gratitude</span>
+      </div>
+      <div class="w-12 h-0.5 bg-gray-300"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-semibold">4</div>
+        <span class="ml-2 text-sm font-medium text-gray-400">Reflect</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Affirmation Section -->
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">Your Daily Affirmation</h1>
+    <p class="text-lg text-gray-600">Take a moment to absorb this positive message</p>
+  </div>
+  
+  <% if @affirmation %>
+    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 border-2 border-blue-200 p-12 rounded-2xl shadow-lg text-center mb-8">
+      <div class="max-w-2xl mx-auto">
+        <div class="text-6xl mb-6">✨</div>
+        <p class="text-3xl font-medium text-gray-800 leading-relaxed mb-6 italic">
+          "<%= @affirmation.content %>"
+        </p>
+        <p class="text-sm text-gray-500">
+          💡 Take a deep breath and let this affirmation resonate with you
+        </p>
+      </div>
+    </div>
+  <% else %>
+    <div class="bg-yellow-50 border-2 border-yellow-200 p-8 rounded-xl text-center mb-8">
+      <p class="text-xl text-gray-700 mb-4">No affirmations available yet.</p>
+      <p class="text-gray-600">You can continue with your daily workflow and add affirmations later.</p>
+    </div>
+  <% end %>
+
+  <!-- Navigation Buttons -->
+  <div class="flex justify-between items-center">
+    <%= link_to "← Back", daily_flow_check_in_path, 
+        class: "inline-block bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+    <%= link_to "Next: Gratitude →", daily_flow_gratitude_path, 
+        class: "inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+  </div>
+</div>

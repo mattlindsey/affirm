@@ -1,0 +1,89 @@
+<div class="max-w-4xl mx-auto p-6">
+  <!-- Progress Indicator - All Complete -->
+  <div class="mb-8">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
+        <span class="ml-2 text-sm font-medium text-green-600">Check-In</span>
+      </div>
+      <div class="w-12 h-0.5 bg-green-500"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
+        <span class="ml-2 text-sm font-medium text-green-600">Affirmation</span>
+      </div>
+      <div class="w-12 h-0.5 bg-green-500"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
+        <span class="ml-2 text-sm font-medium text-green-600">Gratitude</span>
+      </div>
+      <div class="w-12 h-0.5 bg-green-500"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
+        <span class="ml-2 text-sm font-medium text-green-600">Reflect</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Completion Celebration -->
+  <div class="text-center mb-8">
+    <div class="text-8xl mb-4">🎉</div>
+    <h1 class="text-5xl font-bold text-gray-800 mb-4">Well Done!</h1>
+    <p class="text-2xl text-gray-600 mb-2">You've completed your daily workflow</p>
+    <p class="text-lg text-gray-500">Keep up the amazing work on your journey to positivity!</p>
+  </div>
+
+  <!-- Summary Card -->
+  <div class="bg-gradient-to-br from-purple-50 to-blue-50 border-2 border-purple-200 p-8 rounded-2xl shadow-lg mb-8">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Today's Summary</h2>
+    
+    <!-- Mood Summary -->
+    <% if @todays_mood %>
+      <div class="bg-white p-6 rounded-lg shadow-sm mb-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-700 mb-2">Your Mood</h3>
+            <p class="text-gray-600"><%= @todays_mood.mood_description %></p>
+          </div>
+          <div class="text-5xl"><%= @todays_mood.mood_emoji %></div>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Gratitudes Summary -->
+    <div class="bg-white p-6 rounded-lg shadow-sm">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">Your Gratitudes</h3>
+      <% if @todays_gratitudes.any? %>
+        <ul class="space-y-3">
+          <% @todays_gratitudes.each_with_index do |gratitude, index| %>
+            <li class="flex items-start">
+              <span class="text-xl mr-3"><%= ["🌟", "💚", "✨"][index] %></span>
+              <p class="text-gray-700 flex-1"><%= gratitude.content %></p>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-gray-600">No gratitudes recorded today.</p>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Motivational Message -->
+  <div class="bg-gradient-to-r from-green-50 to-teal-50 border-2 border-green-200 p-6 rounded-xl mb-8 text-center">
+    <p class="text-lg text-gray-700 font-medium mb-2">
+      ✨ Remember: Consistency is key to building a positive mindset
+    </p>
+    <p class="text-gray-600">
+      Come back tomorrow to continue your journey!
+    </p>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="flex flex-col sm:flex-row justify-center gap-4">
+    <%= link_to "← Back to Home", root_path, 
+        class: "inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 text-center" %>
+    <%= link_to "View All Gratitudes", gratitude_path, 
+        class: "inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 text-center" %>
+    <%= link_to "View Check-In History", checkins_path, 
+        class: "inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 text-center" %>
+  </div>
+</div>
