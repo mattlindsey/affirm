@@ -23,7 +23,7 @@ class CheckinsController < ApplicationController
       end
       scope.where(created_at: range_start..range_end).count
     end
-    
+
     # Additionally prepare daily data for the current month (1..end_of_month)
     start_of_month = today.beginning_of_month
     end_of_month = today.end_of_month
@@ -38,7 +38,7 @@ class CheckinsController < ApplicationController
     # Suggest a goal line slightly above the observed max (rounded to next 10)
     max_daily = @daily_values.max || 0
     @daily_goal = if max_daily > 0
-      (( (max_daily.to_f / 10.0).ceil + 1 ) * 10)
+      (((max_daily.to_f / 10.0).ceil + 1) * 10)
     else
       0
     end
@@ -48,7 +48,7 @@ class CheckinsController < ApplicationController
     last_30_start = (today - 29.days)
     last_30_range = last_30_start.beginning_of_day..last_30_end.end_of_day
     last_30_days = (0..29).to_a.map { |i| (last_30_start + i.days).to_date }
-    @last_30_labels = last_30_days.map { |d| d.strftime('%b %d') } # e.g. Oct 05
+    @last_30_labels = last_30_days.map { |d| d.strftime("%b %d") } # e.g. Oct 05
     @last_30_values = last_30_days.map do |d|
       day_scope = scope.where(created_at: d.beginning_of_day..d.end_of_day)
       # compute average mood for the day; if none, use null so chart skips label
