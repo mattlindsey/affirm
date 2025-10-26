@@ -36,3 +36,48 @@ Rails.application.routes.draw do
   get  "settings", to: "settings#index"
   post "settings", to: "settings#update"
 end
+
+
+Rails.application.routes.draw do
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
+  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  get "up" => "rails/health#show", as: :rails_health_check
+
+  # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
+  # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
+  # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+
+  # Defines the root path route ("/")
+  root "home#index"
+
+  # Settings routes (refactored to remove duplicates and unconventional routes)
+  get "settings", to: "settings#index", as: :settings
+  post "settings", to: "settings#update"
+
+  # Welcome screen routes
+  get "welcome" => "welcome#index", as: :welcome
+  post "welcome/mood" => "welcome#create_mood", as: :welcome_mood
+
+  get "checkins" => "checkins#index", as: :checkins
+
+  # Affirmations routes (refactored to combine custom actions into a resources block)
+  resources :affirmations, only: [:index, :destroy] do
+    collection do
+      get :random
+      get :ai
+    end
+  end
+
+  # Gratitude routes (refactored into a standard resources block, including :destroy)
+  # NOTE: To align with this RESTful routing, the following changes are required in `GratitudeController`:
+  # - The action for the 'new' form must be renamed from `create` to `new`.
+  # - The action for saving a new record must be renamed from `store` to `create`.
+  resources :gratitudes, controller: 'gratitude', only: [:index, :new, :create, :destroy] do
+    collection do
+      get :random
+      get :prompt
+    end
+  end
+end
