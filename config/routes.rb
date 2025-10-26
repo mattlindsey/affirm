@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   # Daily Flow routes
+  get "daily_flow", to: "daily_flow#start", as: :daily_flow
   get "daily_flow/start", to: "daily_flow#start", as: :daily_flow_start
   get "daily_flow/check_in", to: "daily_flow#check_in", as: :daily_flow_check_in
   post "daily_flow/check_in", to: "daily_flow#save_check_in", as: :daily_flow_save_check_in
@@ -29,21 +30,12 @@ Rails.application.routes.draw do
   get "settings", to: "settings#index", as: :settings
   post "settings", to: "settings#update"
 
-
-  # Welcome screen routes
-  get "welcome" => "welcome#index", as: :welcome
-  post "welcome/mood" => "welcome#create_mood", as: :welcome_mood
-
   get "checkins" => "checkins#index", as: :checkins
 
   resources :affirmations, only: [ :index, :destroy ]
   get "gratitude" => "gratitude#index", as: :gratitude
   get "gratitude/random" => "gratitude#random", as: :gratitude_random
   get "gratitude/prompt" => "gratitude#prompt", as: :gratitude_prompt
-  get "gratitude/create" => "gratitude#create", as: :create_gratitude
-  post "gratitude" => "gratitude#store", as: :store_gratitude
   get "affirmations/random" => "affirmations#random", as: :random_affirmation
   get "affirmations/ai" => "affirmations#ai", as: :ai_affirmation
-  get  "settings", to: "settings#index"
-  post "settings", to: "settings#update"
 end

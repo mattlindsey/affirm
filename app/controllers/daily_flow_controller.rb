@@ -30,34 +30,14 @@ class DailyFlowController < ApplicationController
 
   # Step 4: Capture gratitudes
   def gratitude
-    @prompts = [
-      "Who are you grateful for this week?",
-      "What experience made you smile today?",
-      "What's something you're looking forward to?",
-      "What's a small joy you experienced recently?",
-      "Who has helped you recently and how?",
-      "What's something beautiful you noticed today?",
-      "What's a challenge you're grateful to have overcome?",
-      "What's something you love about where you live?"
-    ]
-    @current_prompt = @prompts.sample
+    @current_prompt = GreetingService.gratitude_prompts.sample
   end
 
   def save_gratitude
     if create_gratitudes
       redirect_to action: :reflection
     else
-      @prompts = [
-        "Who are you grateful for this week?",
-        "What experience made you smile today?",
-        "What's something you're looking forward to?",
-        "What's a small joy you experienced recently?",
-        "Who has helped you recently and how?",
-        "What's something beautiful you noticed today?",
-        "What's a challenge you're grateful to have overcome?",
-        "What's something you love about where you live?"
-      ]
-      @current_prompt = @prompts.sample
+      @current_prompt = GreetingService.gratitude_prompts.sample
       render :gratitude, status: :unprocessable_content
     end
   end

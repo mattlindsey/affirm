@@ -8,53 +8,10 @@ class GratitudeController < ApplicationController
   end
 
   def prompt
-    @prompts = [
-      "Who are you grateful for this week?",
-      "What experience made you smile today?",
-      "What's something you're looking forward to?",
-      "What's a small joy you experienced recently?",
-      "Who has helped you recently and how?",
-      "What's something beautiful you noticed today?",
-      "What's a challenge you're grateful to have overcome?",
-      "What's something you love about where you live?"
-    ]
-    @current_prompt = @prompts.sample
-  end
-
-  def create
-    # Simple action to render the form
-  end
-
-  def store
-    if create_gratitudes
-      redirect_to gratitude_path, notice: "Today's gratitudes created successfully!"
-    else
-      render :create, status: :unprocessable_content
-    end
+    @current_prompt = GreetingService.gratitude_prompts.sample
   end
 
   private
-
-  def create_gratitudes
-    begin
-      params = gratitude_params
-      return false unless params[:contents].is_a?(Array)
-
-      params[:contents].each do |content|
-        next if content.blank?
-
-        gratitude = Gratitude.new(content: content.strip)
-        return false unless gratitude.save
-      end
-      true
-    rescue ActionController::ParameterMissing
-      false
-    end
-  end
-
-  def gratitude_params
-    params.require(:gratitude).permit(contents: [])
-  end
 
   def ai
     if params[:generate]

@@ -60,4 +60,18 @@ class GreetingService
       "Your positive energy can change the world today. 🌍"
     ]
   end
+
+  # Gratitude prompts for daily workflow
+  def self.gratitude_prompts
+    [
+      "Who are you grateful for this week?",
+      "What experience made you smile today?",
+      "What's something you're looking forward to?",
+      "What's a small joy you experienced recently?",
+      "Who has helped you recently and how?",
+      "What's something beautiful you noticed today?",
+      "What's a challenge you're grateful to have overcome?",
+      "What's something you love about where you live?"
+    ]
+  end
 end
