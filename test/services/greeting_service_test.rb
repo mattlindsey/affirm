@@ -94,4 +94,20 @@ class GreetingServiceTest < ActiveSupport::TestCase
       assert greeting.message.include? greeting.time_based_message
     end
   end
+
+  test "gratitude_prompts returns array of prompts" do
+    prompts = GreetingService.gratitude_prompts
+
+    assert_instance_of Array, prompts
+    assert prompts.length > 0
+    assert prompts.all? { |prompt| prompt.is_a?(String) }
+    assert prompts.include?("Who are you grateful for this week?")
+  end
+
+  test "gratitude_prompts can be sampled" do
+    prompt = GreetingService.gratitude_prompts.sample
+
+    assert_instance_of String, prompt
+    assert prompt.present?
+  end
 end
