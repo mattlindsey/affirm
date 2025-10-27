@@ -14,7 +14,7 @@ class DailyFlowController < ApplicationController
 
   def save_check_in
     @mood_check_in = MoodCheckIn.new(mood_params)
-    
+
     if @mood_check_in.save
       redirect_to action: :affirmation
     else
