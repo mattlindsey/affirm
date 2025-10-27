@@ -31,3 +31,108 @@
     <% end %>
   </div>
 </div>
+
+<!-- Chat popup UI (UI-only, no backend integration) -->
+<style>
+  /* Larger modal + message styles */
+  #chat-open-btn { width:56px; height:56px; border-radius:9999px; }
+  #chat-backdrop { display: none; }
+  #chat-backdrop.active { display: flex; }
+
+  .chat-msg { display: block; padding: 10px 14px; margin: 8px 0; max-width: 85%; border-radius: 14px; }
+  .chat-msg p { margin: 0; white-space: pre-wrap; } /* preserve line breaks */
+  .chat-msg.user { margin-left: auto; background: #0ea5e9; color: #fff; }
+  .chat-msg.bot  { margin-right: auto; background: #f1f5f9; color: #0f172a; }
+
+  /* ensure chat body stacks messages vertically */
+  #chat-body { display: block; }
+</style>
+
+<!-- Floating chat button -->
+<button id="chat-open-btn"
+  aria-label="Open chat"
+  class="fixed right-6 bottom-6 bg-sky-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg z-50">
+  💬
+</button>
+
+<!-- Chat modal/backdrop -->
+<div id="chat-backdrop" class="fixed inset-0 bg-black/40 z-40 items-end justify-end p-4" role="dialog" aria-modal="true">
+  <div id="chat-modal" class="bg-white rounded-xl shadow-xl flex flex-col overflow-hidden" style="width:420px; max-width:calc(100% - 32px); height:560px;">
+    <div class="flex items-center justify-between px-4 py-2 bg-slate-50 border-b">
+      <strong class="text-sm text-slate-800">Chat</strong>
+      <button id="chat-close-btn" aria-label="Close chat" class="text-slate-600 hover:text-slate-900">✕</button>
+    </div>
+
+    <div id="chat-body" class="px-3 py-3 flex-1 overflow-auto bg-white">
+      <div class="chat-msg bot"><p>Hello! This is a UI-only chat popup.</p></div>
+    </div>
+
+    <div class="px-3 py-2 border-t bg-white">
+      <div class="flex gap-2">
+        <input id="chat-input" type="text" placeholder="Type a message…" aria-label="Chat message"
+               class="flex-1 px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300" />
+        <button id="chat-send-btn" class="px-3 py-2 bg-sky-600 text-white rounded-lg">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const openBtn = document.getElementById('chat-open-btn');
+    const backdrop = document.getElementById('chat-backdrop');
+    const closeBtn = document.getElementById('chat-close-btn');
+    const sendBtn = document.getElementById('chat-send-btn');
+    const input = document.getElementById('chat-input');
+    const body = document.getElementById('chat-body');
+
+    function openChat() {
+      backdrop.classList.add('active');
+      openBtn.setAttribute('aria-hidden', 'true');
+      openBtn.style.display = 'none';
+      setTimeout(() => input.focus(), 50);
+    }
+    function closeChat() {
+      backdrop.classList.remove('active');
+      openBtn.removeAttribute('aria-hidden');
+      openBtn.style.display = '';
+      openBtn.focus();
+    }
+
+    function appendMessage(text, who) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'chat-msg ' + (who === 'user' ? 'user' : 'bot');
+      const p = document.createElement('p');
+      p.textContent = text;
+      wrapper.appendChild(p);
+      body.appendChild(wrapper);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    openBtn.addEventListener('click', openChat);
+    closeBtn.addEventListener('click', closeChat);
+
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeChat();
+    });
+
+    function send() {
+      const v = input.value.trim();
+      if (!v) return;
+      appendMessage(v, 'user');
+      input.value = '';
+      // mock bot response (UI-only) — appears on its own line
+      setTimeout(() => appendMessage('Thanks — this is a mock reply.\nYou can replace this with API logic later.', 'bot'), 600);
+    }
+
+    sendBtn.addEventListener('click', send);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); send(); }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && backdrop.classList.contains('active')) closeChat();
+    });
+  });
+</script>
+
