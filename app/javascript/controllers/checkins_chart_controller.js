@@ -48,7 +48,7 @@ export default class extends Controller {
   const yTitle = this.element.dataset.checkinsChartYTitle || this.element.dataset.checkinsChartXTitle || ''
   const isMood = String(yTitle).toLowerCase().includes('mood')
   if (isMood) {
-    // force mood scale 1..10
+  // force mood scale 1..10
     suggestedMax = 10
   }
   const integerSteps = true
@@ -62,10 +62,15 @@ export default class extends Controller {
         meta.data.forEach((bar, index) => {
           const value = dataset.data[index];
           if (value === null || value === undefined) return;
-          // show 1 as valid value; only skip null/undefined
+          // show 1-9 as valid values; only skip null/undefined and explicit zeros
           if (Number(value) === 0) return; // still skip explicit zeros
+          // hide the label '10' for the Mood dataset (blue) for visual reasons
+          if (Number(value) === 10 && String(dataset.label).toLowerCase() === 'mood') return;
           const x = bar.x;
-          const y = bar.y - 6;
+          // ensure label doesn't render above chart area (clipped). Keep at least 6px gap.
+          const topLimit = chart.chartArea.top + 6;
+          const desiredY = bar.y - 6;
+          const y = Math.max(desiredY, topLimit);
           ctx.save();
           ctx.fillStyle = '#111827';
           ctx.font = '600 11px system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial';
@@ -134,7 +139,8 @@ export default class extends Controller {
           }]
         },
         options: {
-          layout: { padding: { top: 6, left: 12, right: 8, bottom: 6 } },
+          // increase top padding so labels near the top (e.g. 10) have room to render
+          layout: { padding: { top: 18, left: 12, right: 8, bottom: 6 } },
           responsive: false,
           animation: { duration: 0 },
           maintainAspectRatio: false,
