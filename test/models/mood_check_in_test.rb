@@ -26,10 +26,10 @@ class MoodCheckInTest < ActiveSupport::TestCase
   end
 
   test "should not be valid with mood level below 1" do
-    @mood_check_in.mood_level = 0
+  @mood_check_in.mood_level = 0
 
-    assert_not @mood_check_in.valid?
-    assert_includes @mood_check_in.errors[:mood_level], "is not included in the list"
+  assert_not @mood_check_in.valid?
+  assert_includes @mood_check_in.errors[:mood_level], "is not included in the list"
   end
 
   test "should not be valid with mood level above 10" do

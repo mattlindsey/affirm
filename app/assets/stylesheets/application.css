@@ -13,3 +13,43 @@
  *= require_tree .
  *= require_self
  */
+
+/* Styles for checkins chart wrapper */
+.chart-wrapper {
+	overflow: visible;
+	position: relative;
+	height: 340px;
+	max-width: 1200px;
+	width: 100%;
+	margin: 0 auto 48px;
+	padding: 10px;
+	border-radius: 14px;
+	background: #fff;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.chart-wrapper canvas {
+	position: relative;
+	z-index: 0;
+	display: block;
+	width: 100% !important;
+	height: 300px !important;
+	max-height: 300px !important;
+	border-radius: 10px;
+}
+
+@media (min-width: 1100px) {
+	.chart-wrapper { max-width: 1100px; }
+}
+
+/* Ensure checkin cards sit above the chart and add spacing on small screens */
+.max-w-5xl .space-y-6 > article {
+	position: relative;
+	z-index: 10;
+	background: #ffffff;
+	margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+	.chart-wrapper { margin-bottom: 64px; }
+	.max-w-5xl .space-y-6 > article { margin-top: 20px; }
+}

@@ -1,0 +1,15 @@
+<!-- Checkins chart partial: canvas controlled by Stimulus -->
+<div class="w-full flex justify-center items-start mb-8">
+  <div style="width:100%" class="chart-wrapper">
+    <canvas
+      data-controller="checkins-chart"
+  data-checkins-chart-labels-value='<%= (defined?(@daily_labels) && @daily_labels.present?) ? @daily_labels.to_json : ((defined?(@last_30_labels) && @last_30_labels.present?) ? @last_30_labels.to_json : @labels.to_json) %>'
+  data-checkins-chart-values-value='<%= (defined?(@daily_values) && @daily_values.present?) ? @daily_values.to_json : ((defined?(@last_30_values) && @last_30_values.present?) ? @last_30_values.to_json : @values.to_json) %>'
+  data-checkins-chart-goal-value='<%= (defined?(@daily_goal) ? @daily_goal : 0) %>'
+  data-checkins-chart-x-title='<%= (defined?(@daily_labels) && @daily_labels.present?) ? "Month" : ((defined?(@last_30_labels) && @last_30_labels.present?) ? "Last 30 days" : "Month") %>'
+      data-checkins-chart-y-title='Mood'
+      style="display:block; width:100%; height:220px; border-radius:6px; border:1px solid rgba(0,0,0,0.04); background:transparent;"
+    ></canvas>
+  <div class="mt-2 flex items-center gap-4" data-checkins-chart-legend></div>
+  </div>
+</div>
