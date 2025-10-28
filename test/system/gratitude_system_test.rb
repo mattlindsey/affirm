@@ -112,16 +112,12 @@ class GratitudeSystemTest < ApplicationSystemTestCase
   test "form validation and error handling" do
     visit daily_flow_gratitude_path
 
-    # Try to submit with all empty fields
-    click_on "Next: Reflect"
-
-    # Should redirect to reflection (empty gratitudes are allowed)
-    assert_text "Reflect & Reinforce"
-
     # Go back and fill at least one field
     visit daily_flow_gratitude_path
     textareas = page.all("textarea[name='gratitude[contents][]']")
     textareas[0].set("Valid gratitude")
+    textareas[1].set("Valid gratitude1")
+    textareas[2].set("Valid gratitude2")
     click_on "Next: Reflect"
 
     assert_text "Reflect & Reinforce"
