@@ -13,7 +13,7 @@ class GratitudeSystemTest < ApplicationSystemTestCase
     visit gratitude_path
 
     assert_text "Gratitude"
-  assert_text "📝 Create Today's Gratitudes"
+    assert_text "📝 Create Today's Gratitudes"
     assert_text "🎲 Get Random Gratitude"
 
     # Check if there are existing gratitudes or the empty state message
@@ -198,7 +198,7 @@ class GratitudeSystemTest < ApplicationSystemTestCase
     # Should show empty state message
     assert_text "No gratitudes yet. Create today's gratitudes to get started!"
 
-  # Create button should still be available
-  assert_selector "a", text: "📝 Create Today's Gratitudes"
+    # Create button should still be available
+    assert_selector "a", text: "📝 Create Today's Gratitudes"
   end
 end
