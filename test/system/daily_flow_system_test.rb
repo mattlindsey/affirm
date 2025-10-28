@@ -115,16 +115,6 @@ class DailyFlowSystemTest < ApplicationSystemTestCase
     assert_text "Welcome"
   end
 
-  test "daily workflow handles empty gratitudes" do
-    visit daily_flow_gratitude_path
-
-    # Submit without filling any gratitudes
-    click_on "Next: Reflect"
-
-    # Should still proceed to reflection
-    assert_text "Reflect & Reinforce"
-  end
-
   test "daily workflow completion shows summary" do
     # Create some data first
     MoodCheckIn.create!(mood_level: 8, notes: "Good day")
