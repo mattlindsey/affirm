@@ -15,6 +15,10 @@ Since this is a learning exercise, please ask in the Issue to be assigned first 
 
 These are the steps for setting up your development environment locally.
 
+### Step 0: Install ruby if you don't already have it
+
+After registering on github and installing git, I recommend [rbenv](https://github.com/rbenv/rbenv#readme) or [rvm](https://rvm.io/).
+
 ### Step 1: Get your own local copy of the project to work on
 
 You'll do your development work on your own forked copy of the project, so hit the 'clone' button in github.
