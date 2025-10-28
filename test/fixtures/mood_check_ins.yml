@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mood_level: 8
+  notes: Feeling great today!
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  mood_level: 5
+  notes: Neutral day
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+
+three:
+  mood_level: 9
+  notes: Amazing day!
+  created_at: <%= 2.days.ago %>
+  updated_at: <%= 2.days.ago %>

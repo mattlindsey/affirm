@@ -1,0 +1,128 @@
+<div class="max-w-4xl mx-auto p-6">
+  <!-- Progress Indicator -->
+  <div class="mb-8">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold">1</div>
+        <span class="ml-2 text-sm font-medium text-blue-600">Check-In</span>
+      </div>
+      <div class="w-12 h-0.5 bg-gray-300"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-semibold">2</div>
+        <span class="ml-2 text-sm font-medium text-gray-400">Affirmation</span>
+      </div>
+      <div class="w-12 h-0.5 bg-gray-300"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-semibold">3</div>
+        <span class="ml-2 text-sm font-medium text-gray-400">Gratitude</span>
+      </div>
+      <div class="w-12 h-0.5 bg-gray-300"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-semibold">4</div>
+        <span class="ml-2 text-sm font-medium text-gray-400">Reflect</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Welcome Header -->
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">Daily Check-In</h1>
+    <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-xl border border-blue-200">
+      <p class="text-xl text-gray-700 leading-relaxed">
+        <span id="time-greeting"><%= @greeting.time_based_message %></span>
+        <span id="personalized-message"><%= @greeting.personalized_message %></span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Mood Check-in Section -->
+  <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">How are you feeling today?</h2>
+    
+    <%= form_with url: daily_flow_save_check_in_path, method: :post, local: true, class: "space-y-6" do |form| %>
+      <!-- Emoji Slider -->
+      <div class="text-center">
+        <div class="mb-4">
+          <label class="block text-lg font-medium text-gray-700 mb-2">
+            Rate your mood (1-10)
+          </label>
+          <div class="flex items-center justify-center space-x-2 mb-4">
+            <span class="text-2xl">😢</span>
+            <input 
+              type="range" 
+              name="mood_check_in[mood_level]" 
+              min="1" 
+              max="10" 
+              value="5" 
+              class="w-64 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+              id="mood-slider"
+            />
+            <span class="text-2xl">😄</span>
+          </div>
+          <div class="flex justify-between text-sm text-gray-500 w-64 mx-auto">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
+            <span>4</span>
+            <span>5</span>
+            <span>6</span>
+            <span>7</span>
+            <span>8</span>
+            <span>9</span>
+            <span>10</span>
+          </div>
+        </div>
+        
+        <!-- Mood Display -->
+        <div class="mb-6">
+          <div class="text-4xl mb-2" id="mood-emoji">😐</div>
+          <p class="text-lg text-gray-600" id="mood-description">Neutral</p>
+        </div>
+      </div>
+
+      <!-- Optional Notes -->
+      <div>
+        <label class="block text-lg font-medium text-gray-700 mb-2">
+          Any thoughts you'd like to share? (optional)
+        </label>
+        <%= form.text_area :notes,
+            name: "mood_check_in[notes]",
+            class: "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none",
+            rows: 3,
+            placeholder: "What's on your mind today?" %>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="flex justify-between items-center pt-6">
+        <%= link_to "← Exit Workflow", root_path, 
+            class: "inline-block bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+        <%= form.submit "Next: Affirmation →", 
+            class: "inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= mood_slider_script %>
+
+<style>
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3B82F6;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+
+  .slider::-moz-range-thumb {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: #3B82F6;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+</style>

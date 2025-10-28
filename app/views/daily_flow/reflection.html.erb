@@ -1,0 +1,80 @@
+<div class="max-w-4xl mx-auto p-6">
+  <!-- Progress Indicator -->
+  <div class="mb-8">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
+        <span class="ml-2 text-sm font-medium text-green-600">Check-In</span>
+      </div>
+      <div class="w-12 h-0.5 bg-green-500"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
+        <span class="ml-2 text-sm font-medium text-green-600">Affirmation</span>
+      </div>
+      <div class="w-12 h-0.5 bg-green-500"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
+        <span class="ml-2 text-sm font-medium text-green-600">Gratitude</span>
+      </div>
+      <div class="w-12 h-0.5 bg-green-500"></div>
+      <div class="flex items-center">
+        <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold">4</div>
+        <span class="ml-2 text-sm font-medium text-blue-600">Reflect</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reflection Section -->
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">Reflect & Reinforce</h1>
+    <p class="text-lg text-gray-600">Let's review what you're grateful for today</p>
+  </div>
+
+  <!-- Display Today's Gratitudes -->
+  <div class="bg-gradient-to-br from-green-50 to-teal-50 border-2 border-green-200 p-8 rounded-2xl shadow-lg mb-8">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Your Gratitudes Today</h2>
+    
+    <% if @todays_gratitudes.any? %>
+      <div class="space-y-4">
+        <% @todays_gratitudes.each_with_index do |gratitude, index| %>
+          <div class="bg-white p-4 rounded-lg shadow-sm border border-green-100">
+            <div class="flex items-start">
+              <span class="text-2xl mr-3"><%= ["🌟", "💚", "✨"][index] %></span>
+              <p class="text-lg text-gray-700 flex-1"><%= gratitude.content %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-center text-gray-600">No gratitudes recorded yet today.</p>
+    <% end %>
+  </div>
+
+  <!-- Reflection Prompt -->
+  <%= form_with url: daily_flow_save_reflection_path, method: :post, local: true, class: "space-y-6 mb-8" do |form| %>
+    <div class="bg-white p-8 rounded-xl shadow-lg border-2 border-blue-200">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4 text-center">Reflection Question</h3>
+      <p class="text-lg text-gray-700 mb-6 text-center">
+        💭 What is one small action you can take today based on these feelings of gratitude?
+      </p>
+      
+      <textarea 
+        name="reflection[action]"
+        rows="4"
+        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+        placeholder="I can..."></textarea>
+      
+      <p class="text-sm text-gray-500 mt-2 text-center">
+        This reflection helps you turn gratitude into positive action
+      </p>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="flex justify-between items-center pt-6">
+      <%= link_to "← Back", daily_flow_gratitude_path, 
+          class: "inline-block bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+      <%= form.submit "Complete Workflow →", 
+          class: "inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+    </div>
+  <% end %>
+</div>
