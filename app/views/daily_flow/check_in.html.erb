@@ -85,7 +85,8 @@
         <label class="block text-lg font-medium text-gray-700 mb-2">
           Any thoughts you'd like to share? (optional)
         </label>
-        <%= form.text_area :notes, 
+        <%= form.text_area :notes,
+            name: "mood_check_in[notes]",
             class: "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none",
             rows: 3,
             placeholder: "What's on your mind today?" %>
