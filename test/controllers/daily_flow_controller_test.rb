@@ -12,7 +12,7 @@ class DailyFlowControllerTest < ActionDispatch::IntegrationTest
     assert_select "h1", "Daily Check-In"
     assert_select "form[action='#{daily_flow_save_check_in_path}'][method='post']"
     assert_select "input[name='mood_check_in[mood_level]']"
-    assert_select "textarea[name='notes']"
+    assert_select "textarea[name='mood_check_in[notes]']"
   end
 
   test "should save check_in and redirect to affirmation" do
