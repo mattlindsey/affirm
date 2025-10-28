@@ -1,6 +1,6 @@
 class GratitudeController < ApplicationController
   def index
-    @gratitudes = Gratitude.order(created_at: :asc)
+    @gratitudes = Gratitude.order(created_at: :desc)
   end
 
   def random
