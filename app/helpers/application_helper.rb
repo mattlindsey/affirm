@@ -71,7 +71,7 @@ module ApplicationHelper
         }
 
         slider.addEventListener('input', updateMoodDisplay);
-        
+
         // Initialize display
         updateMoodDisplay();
       JAVASCRIPT
