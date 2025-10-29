@@ -2,15 +2,15 @@ require "test_helper"
 
 class CheckinsChartTest < ActionDispatch::IntegrationTest
   def setup
-  MoodCheckIn.destroy_all
+    MoodCheckIn.destroy_all
     # create a couple of checkins on different days
     MoodCheckIn.create!(mood_level: 5, created_at: Time.zone.now.beginning_of_month + 1.day)
     MoodCheckIn.create!(mood_level: 8, created_at: Time.zone.now.beginning_of_month + 25.days)
-  # create multiple check-ins on the same day to assert we pick the highest
-  # use day 10 explicitly (index 9 in zero-based arrays)
-  same_day = Time.zone.now.beginning_of_month + 9.days
-  MoodCheckIn.create!(mood_level: 3, created_at: same_day + 2.hours)
-  MoodCheckIn.create!(mood_level: 9, created_at: same_day + 5.hours)
+    # create multiple check-ins on the same day to assert we pick the highest
+    # use day 10 explicitly (index 9 in zero-based arrays)
+    same_day = Time.zone.now.beginning_of_month + 9.days
+    MoodCheckIn.create!(mood_level: 3, created_at: same_day + 2.hours)
+    MoodCheckIn.create!(mood_level: 9, created_at: same_day + 5.hours)
   end
 
   test "chart canvas exports daily labels and values" do
