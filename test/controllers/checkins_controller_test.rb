@@ -2,8 +2,8 @@ require "test_helper"
 
 class CheckinsControllerTest < ActionDispatch::IntegrationTest
   def setup
-    # Ensure test DB has known state
-    MoodCheckIn.delete_all
+  # Ensure test DB has known state
+  MoodCheckIn.destroy_all
   end
 
   test "should get index and show message when empty" do

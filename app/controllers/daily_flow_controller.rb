@@ -48,15 +48,46 @@ class DailyFlowController < ApplicationController
   end
 
   def save_reflection
-    # For now, we'll just redirect to completion
-    # In the future, this could save reflection notes
-    redirect_to action: :completion
-  end
+ @mood_check_in = if params[:mood_check_in_id].present?
+                     MoodCheckIn.find_by(id: params[:mood_check_in_id])
+ else
+                     MoodCheckIn.where("DATE(created_at) = ?", @today).last
+ end
+    # Require reflection params and content; otherwise render the reflection form with errors
+    begin
+      reflection_data = reflection_params
+    rescue ActionController::ParameterMissing
+      @todays_gratitudes = Gratitude.where("DATE(created_at) = ?", @today).order(created_at: :desc).limit(3)
+      return render :reflection, status: :unprocessable_entity
+    end
+
+    if reflection_data[:content].blank?
+      @todays_gratitudes = Gratitude.where("DATE(created_at) = ?", @today).order(created_at: :desc).limit(3)
+      return render :reflection, status: :unprocessable_entity
+    end
+
+    # Ensure we have a mood_check_in to attach to
+    unless @mood_check_in
+      @todays_gratitudes = Gratitude.where("DATE(created_at) = ?", @today).order(created_at: :desc).limit(3)
+      return render :reflection, status: :unprocessable_entity
+    end
+
+    @reflection = @mood_check_in.reflections.build(reflection_data)
+    @reflection.user = current_user if defined?(current_user)
+
+    if @reflection.save
+      redirect_to action: :completion
+    else
+      @todays_gratitudes = Gratitude.where("DATE(created_at) = ?", @today).order(created_at: :desc).limit(3)
+      render :reflection, status: :unprocessable_entity
+    end
+end
 
   # Step 6: Completion screen
   def completion
     @todays_mood = MoodCheckIn.where("DATE(created_at) = ?", @today).last
     @todays_gratitudes = Gratitude.where("DATE(created_at) = ?", @today).order(created_at: :desc).limit(3)
+    @todays_reflections = Reflection.where("DATE(created_at) = ?", @today).order(created_at: :desc)
   end
 
   private
@@ -67,6 +98,10 @@ class DailyFlowController < ApplicationController
 
   def mood_params
     params.require(:mood_check_in).permit(:mood_level, :notes)
+  end
+
+  def reflection_params
+    params.require(:reflection).permit(:content)
   end
 
   def create_gratitudes

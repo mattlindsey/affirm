@@ -45,9 +45,9 @@ class DailyFlowWorkflowTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "h1", "Reflect & Reinforce"
 
-    # Step 5: Complete reflection
-    post daily_flow_save_reflection_path
-    assert_redirected_to daily_flow_completion_path
+  # Step 5: Complete reflection
+  post daily_flow_save_reflection_path, params: { reflection: { content: "Workflow reflection" } }
+  assert_redirected_to daily_flow_completion_path
     follow_redirect!
     assert_response :success
     assert_select "h1", "Well Done!"

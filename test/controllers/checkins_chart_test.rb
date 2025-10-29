@@ -2,7 +2,7 @@ require "test_helper"
 
 class CheckinsChartTest < ActionDispatch::IntegrationTest
   def setup
-    MoodCheckIn.delete_all
+  MoodCheckIn.destroy_all
     # create a couple of checkins on different days
     MoodCheckIn.create!(mood_level: 5, created_at: Time.zone.now.beginning_of_month + 1.day)
     MoodCheckIn.create!(mood_level: 8, created_at: Time.zone.now.beginning_of_month + 25.days)
