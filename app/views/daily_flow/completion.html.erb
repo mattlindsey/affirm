@@ -65,6 +65,27 @@
         <p class="text-gray-600">No gratitudes recorded today.</p>
       <% end %>
     </div>
+  
+    <!-- Reflections Summary -->
+    <div class="bg-white p-6 rounded-lg shadow-sm mt-6">
+      <h3 class="text-lg font-semibold text-gray-700 mb-4">Your Reflections</h3>
+      <% if @todays_reflections.any? %>
+        <ul class="space-y-3">
+          <% @todays_reflections.each do |reflection| %>
+            <li class="flex items-center justify-between">
+              <div class="flex-1 pr-6">
+                <p class="text-gray-700"><%= simple_format(reflection.content) %></p>
+              </div>
+              <div class="flex-shrink-0 text-right text-sm text-gray-500">
+                <%= l(reflection.created_at, format: :short) %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-gray-600">No reflections recorded today.</p>
+      <% end %>
+    </div>
   </div>
 
   <!-- Motivational Message -->

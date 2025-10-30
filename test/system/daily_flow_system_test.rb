@@ -42,7 +42,10 @@ class DailyFlowSystemTest < ApplicationSystemTestCase
     assert_text "I am grateful for my family"
     assert_text "I am grateful for this opportunity"
 
-    click_on "Complete Workflow"
+  # Fill the required reflection field
+  fill_in "reflection[content]", with: "I will take a short walk to boost my energy"
+
+  click_on "Complete Workflow"
 
     # Step 5: Completion
     assert_text "Well Done!"

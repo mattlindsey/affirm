@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_10_21_225738) do
+ActiveRecord::Schema[8.1].define(version: 2025_10_29_170633) do
   create_table "affirmations", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
@@ -31,9 +31,21 @@ ActiveRecord::Schema[8.1].define(version: 2025_10_21_225738) do
     t.index ["created_at"], name: "index_mood_check_ins_on_created_at"
   end
 
+  create_table "reflections", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.integer "mood_check_in_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["mood_check_in_id"], name: "index_reflections_on_mood_check_in_id"
+    t.index ["user_id"], name: "index_reflections_on_user_id"
+  end
+
   create_table "settings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "reflections", "mood_check_ins"
 end

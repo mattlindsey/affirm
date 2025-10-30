@@ -110,7 +110,7 @@ class DailyFlowControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should save reflection and redirect to completion" do
-    post daily_flow_save_reflection_path
+    post daily_flow_save_reflection_path, params: { reflection: { content: "Test reflection" } }
     assert_redirected_to daily_flow_completion_path
   end
 
