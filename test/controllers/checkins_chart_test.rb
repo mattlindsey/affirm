@@ -1,17 +1,7 @@
 require "test_helper"
 
 class CheckinsChartTest < ActionDispatch::IntegrationTest
-  def setup
-    MoodCheckIn.destroy_all
-    # create a couple of checkins on different days
-    MoodCheckIn.create!(mood_level: 5, created_at: Time.zone.now.beginning_of_month + 1.day)
-    MoodCheckIn.create!(mood_level: 8, created_at: Time.zone.now.beginning_of_month + 25.days)
-    # create multiple check-ins on the same day to assert we pick the highest
-    # use day 10 explicitly (index 9 in zero-based arrays)
-    same_day = Time.zone.now.beginning_of_month + 9.days
-    MoodCheckIn.create!(mood_level: 3, created_at: same_day + 2.hours)
-    MoodCheckIn.create!(mood_level: 9, created_at: same_day + 5.hours)
-  end
+  fixtures :mood_check_ins
 
   test "chart canvas exports daily labels and values" do
     get checkins_path
@@ -30,8 +20,9 @@ class CheckinsChartTest < ActionDispatch::IntegrationTest
     # values length should match number of days in current month
     days_in_month = Time.zone.now.end_of_month.day
     assert_equal days_in_month, values.length
-  # The 10th day should reflect the highest mood of that day (pick the max when multiple check-ins)
-  tenth_day_index = 9 # zero-based index for day 10
-  assert_equal 9, values[tenth_day_index]
+  # Assert that the day containing the fixture `:three` reflects its mood_level (9)
+  fixture_three = mood_check_ins(:three)
+  fixture_day_index = fixture_three.created_at.in_time_zone.day - 1
+  assert_equal fixture_three.mood_level, values[fixture_day_index]
   end
 end
