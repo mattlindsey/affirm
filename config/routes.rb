@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get "gratitude" => "gratitude#index", as: :gratitude
   get "gratitude/random" => "gratitude#random", as: :gratitude_random
   get "gratitude/prompt" => "gratitude#prompt", as: :gratitude_prompt
+  get "reflections" => "reflections#index", as: :reflections
   get "affirmations/random" => "affirmations#random", as: :random_affirmation
   get "affirmations/ai" => "affirmations#ai", as: :ai_affirmation
 end

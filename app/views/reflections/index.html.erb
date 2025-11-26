@@ -1,0 +1,22 @@
+<div class="max-w-4xl mx-auto p-6">
+  <div class="text-center mb-8">
+    <h1 class="text-4xl font-bold text-gray-800 mb-4">Reflections</h1>
+    <div class="mb-6 flex flex-wrap justify-center gap-4">
+      <%= link_to "📝 Create Today's Reflection", daily_flow_reflection_path,
+          class: "bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
+    </div>
+  </div>
+
+  <% if @reflections.any? %>
+    <div class="space-y-6">
+      <% @reflections.each do |reflection| %>
+        <div class="bg-gray-50 border-l-4 border-blue-500 p-6 rounded-r-lg shadow-md hover:shadow-lg transition-shadow duration-200">
+          <p class="text-lg text-gray-800 leading-relaxed mb-3"><%= reflection.content.present? ? reflection.content : "(No reflection content)" %></p>
+          <small class="text-sm text-gray-500">Created: <%= reflection.created_at.strftime("%B %d, %Y") %></small>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-center text-gray-500 italic text-lg mt-10">No reflections yet. Create today's reflection to get started!</p>
+  <% end %>
+</div>
