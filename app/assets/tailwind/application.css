@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+/* Explicitly define content sources to avoid scanning gem directories */
+@source "../../views/**/*.html.erb";
+@source "../../helpers/**/*.rb";
+@source "../../javascript/**/*.js";
