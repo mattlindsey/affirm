@@ -24,6 +24,9 @@ gem "ruby-openai"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
+# Pin to Ruby 4.0.2's default-gem version to avoid RDoc::VERSION redefinition warning
+gem "rdoc", "7.0.3"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
