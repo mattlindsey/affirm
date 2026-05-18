@@ -94,14 +94,16 @@
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const openBtn = document.getElementById('chat-open-btn');
-    const backdrop = document.getElementById('chat-backdrop');
-    const closeBtn = document.getElementById('chat-close-btn');
-    const sendBtn = document.getElementById('chat-send-btn');
-    const input = document.getElementById('chat-input');
-    const body = document.getElementById('chat-body');
+  const openBtn = document.getElementById('chat-open-btn');
+  const backdrop = document.getElementById('chat-backdrop');
+  const closeBtn = document.getElementById('chat-close-btn');
+  const sendBtn = document.getElementById('chat-send-btn');
+  const input = document.getElementById('chat-input');
+  const body = document.getElementById('chat-body');
 
+  if (!openBtn || !backdrop) {
+    console.error('Chat elements not found');
+  } else {
     function openChat() {
       backdrop.classList.add('active');
       openBtn.setAttribute('aria-hidden', 'true');
@@ -137,7 +139,6 @@
       if (!v) return;
       appendMessage(v, 'user');
       input.value = '';
-      // mock bot response (UI-only) — appears on its own line
       setTimeout(() => appendMessage('Thanks — this is a mock reply.\nYou can replace this with API logic later.', 'bot'), 600);
     }
 
@@ -149,6 +150,6 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && backdrop.classList.contains('active')) closeChat();
     });
-  });
+  }
 </script>
 
