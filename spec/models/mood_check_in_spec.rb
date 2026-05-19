@@ -3,6 +3,15 @@ require "rails_helper"
 RSpec.describe MoodCheckIn, type: :model do
   subject(:mood_check_in) { build(:mood_check_in) }
 
+  describe "associations" do
+    it { is_expected.to have_many(:reflections).dependent(:destroy).inverse_of(:mood_check_in) }
+  end
+
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:mood_level) }
+    it { is_expected.to validate_inclusion_of(:mood_level).in_range(1..10) }
+  end
+
   it "is valid with valid attributes" do
     expect(mood_check_in).to be_valid
   end

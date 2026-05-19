@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe GratitudeRepository, type: :model do
+RSpec.describe GratitudeRepository, type: :service do
   subject(:repository) { GratitudeRepository.new }
 
   describe "#yesterday_gratitude" do

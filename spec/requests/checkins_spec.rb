@@ -11,8 +11,8 @@ RSpec.describe "Checkins", type: :request do
   end
 
   it "lists existing checkins" do
-    MoodCheckIn.create!(mood_level: 7, notes: "Feeling good")
-    MoodCheckIn.create!(mood_level: 3, notes: "A bit low")
+    create(:mood_check_in, mood_level: 7, notes: "Feeling good")
+    create(:mood_check_in, mood_level: 3, notes: "A bit low")
 
     get checkins_path
     expect(response).to have_http_status(:success)

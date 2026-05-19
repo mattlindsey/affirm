@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe GreetingService, type: :model do
+RSpec.describe GreetingService, type: :service do
   subject(:service) { GreetingService.new }
 
   it "returns a Greeting with a time-based message" do
