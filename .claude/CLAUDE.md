@@ -2,7 +2,7 @@
 
 ## Tech Stack
 
-- **Ruby** 3.4, **Rails** 8.1, **SQLite**
+- **Ruby** 4.0, **Rails** 8.1, **SQLite**
 - **Frontend:** Hotwire (Turbo + Stimulus), Tailwind CSS 4, ViewComponent
 - **Testing:** RSpec, FactoryBot, Shoulda Matchers, Capybara
 - **Auth:** `has_secure_password` (Rails 8 built-in), Pundit (authorization)
