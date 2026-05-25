@@ -14,9 +14,24 @@ class AffirmationsController < ApplicationController
     end
   end
 
+  def create
+    @affirmation = Affirmation.new(affirmation_params)
+    if @affirmation.save
+      redirect_to affirmations_path, notice: "Affirmation saved successfully."
+    else
+      redirect_to ai_affirmation_path, alert: "Failed to save affirmation."
+    end
+  end
+
   def destroy
     @affirmation = Affirmation.find(params[:id])
     @affirmation.destroy
     redirect_to affirmations_path, notice: "Affirmation was successfully deleted."
+  end
+
+  private
+
+  def affirmation_params
+    params.require(:affirmation).permit(:content)
   end
 end

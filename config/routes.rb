@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 
   get "checkins" => "checkins#index", as: :checkins
 
-  resources :affirmations, only: [ :index, :destroy ]
+  resources :affirmations, only: [ :index, :create, :destroy ]
   get "gratitude" => "gratitude#index", as: :gratitude
   get "gratitude/random" => "gratitude#random", as: :gratitude_random
   get "gratitude/prompt" => "gratitude#prompt", as: :gratitude_prompt
