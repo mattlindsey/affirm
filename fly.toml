@@ -1,0 +1,40 @@
+# fly.toml — generated for Fly.io deployment
+# Docs: https://fly.io/docs/reference/configuration/
+
+app = "affirm"
+primary_region = "ewr"
+
+[build]
+
+[deploy]
+  release_command = "bin/rails db:migrate"
+
+[processes]
+  app = "./bin/rails server -b 0.0.0.0 -p 3000"
+
+[env]
+  RAILS_ENV = "production"
+  RAILS_LOG_TO_STDOUT = "true"
+
+[http_service]
+  processes = ["app"]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  [http_service.concurrency]
+    type = "connections"
+    hard_limit = 25
+    soft_limit = 20
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory = "512mb"
+
+[[mounts]]
+  source = "affirm_storage"
+  destination = "/rails/storage"
+  initial_size = "1gb"
