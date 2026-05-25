@@ -2,6 +2,9 @@
 
 This project is for learning purposes and can be used to see positive daily Affirmations, record Gratifications, and record Mood.
 
+<img width="1292" height="982" alt="image" src="https://github.com/user-attachments/assets/5499f0de-1259-4778-abff-de7872ca48e9" />
+
+
 # Contributing
 
 See [CONTRIBUTING.md](https://github.com/mattlindsey/affirm/blob/4e8f79c020bb197cf230048379b995f670f87733/CONTRIBUTING.MD)
@@ -17,7 +20,7 @@ These are the steps for setting up your development environment locally.
 
 ### Step 0: Install ruby if you don't already have it
 
-After registering on github and installing git, I recommend [rbenv](https://github.com/rbenv/rbenv#readme) or [rvm](https://rvm.io/).
+After registering on github and installing git on your machine, I recommend [rbenv](https://github.com/rbenv/rbenv#readme) or [mise](https://mise.jdx.dev/).
 
 ### Step 1: Get your own local copy of the project to work on
 
