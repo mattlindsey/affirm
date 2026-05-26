@@ -1,6 +1,6 @@
 class AffirmationsController < ApplicationController
   def index
-    @affirmations = Affirmation.all
+    @affirmations = Affirmation.order(created_at: :desc)
   end
 
   def random
