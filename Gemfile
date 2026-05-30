@@ -25,7 +25,7 @@ gem "ruby_llm"
 # gem "bcrypt", "~> 3.1.7"
 
 # Pin to Ruby 4.0.2's default-gem version to avoid RDoc::VERSION redefinition warning
-gem "rdoc", "7.0.3"
+gem "rdoc", "7.2.0"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
