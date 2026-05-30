@@ -127,9 +127,12 @@ GEM
       net-http (~> 0.5)
     faraday-retry (2.4.0)
       faraday (~> 2.0)
+<<<<<<< HEAD
     ffi (1.17.4-arm64-darwin)
     ffi (1.17.4-x64-mingw-ucrt)
     ffi (1.17.4-x86_64-linux-gnu)
+=======
+>>>>>>> 4f773eb (Use RubyLLM gem instead of OpenAI)
     fugit (1.12.1)
       et-orbi (~> 1.4)
       raabro (~> 1.4)
@@ -325,9 +328,12 @@ GEM
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
     ruby-progressbar (1.13.0)
+<<<<<<< HEAD
     ruby-vips (2.3.0)
       ffi (~> 1.12)
       logger
+=======
+>>>>>>> 4f773eb (Use RubyLLM gem instead of OpenAI)
     ruby_llm (1.15.0)
       base64
       event_stream_parser (~> 1)
