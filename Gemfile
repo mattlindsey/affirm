@@ -18,8 +18,8 @@ gem "stimulus-rails"
 gem "jbuilder"
 # Tailwind CSS for Rails [https://github.com/rails/tailwindcss-rails]
 gem "tailwindcss-rails"
-# OpenAI API client [https://github.com/alexrudall/ruby-openai]
-gem "ruby-openai"
+# LLM client supporting OpenAI, Anthropic, and more [https://rubyllm.com]
+gem "ruby_llm"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
