@@ -1,4 +1,4 @@
-# Your First SDD Feature
+# Your First SDD Feature  (taken from [here](https://github.com/ThibautBaissac/rails_ai_agents/tree/main))
 
 A practical walkthrough for developers new to Spec Driven Development.
 
