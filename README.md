@@ -12,6 +12,8 @@ See [CONTRIBUTING.md](https://github.com/mattlindsey/affirm/blob/4e8f79c020bb197
 Working with this project is a good way to learn Ruby on Rails and AI LLMs (Large Language Models)!
 I did design the app and do the first few commits on this using AI, but I'm hoping people will enjoy the idea behind it and use it to learn Rails and not just use AI tools to do everything.  I will try to respond relatively promptly to people.
 
+If you are really interested in using Claude Code to do Spec Driven Development see [this](.claude/doc/first-sdd-feature.md) walkthrogh.
+
 Since this is a learning exercise, please ask in the Issue to be assigned first before working on anything and submitting a PR.  I intend to only merge PRs from the first person who asks, and please don't ask for more than 1 issue at a time.
 
 # Setting Up for Development
