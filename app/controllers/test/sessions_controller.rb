@@ -1,5 +1,3 @@
-return unless Rails.env.test?
-
 class Test::SessionsController < ApplicationController
   skip_before_action :authenticate_user!
 

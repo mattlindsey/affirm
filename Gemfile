@@ -80,3 +80,5 @@ group :test do
   gem "selenium-webdriver"
   gem "database_cleaner-active_record"
 end
+
+gem "dockerfile-rails", ">= 1.7", group: :development

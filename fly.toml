@@ -1,40 +1,61 @@
-# fly.toml — generated for Fly.io deployment
-# Docs: https://fly.io/docs/reference/configuration/
+# fly.toml app configuration file generated for affirm on 2026-06-04T08:25:39-04:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-app = "affirm"
-primary_region = "ewr"
+app = 'affirm'
+primary_region = 'ewr'
+console_command = '/rails/bin/rails console'
 
 [build]
 
 [deploy]
-  release_command = "bin/rails db:migrate && bin/rails db:seed"
+  strategy = "immediate"
+  release_command = '/bin/bash -c "bin/rails db:migrate && bin/rails db:seed"'
 
-[processes]
-  app = "./bin/rails server -b 0.0.0.0 -p 3000"
+[machines]
+  ha = false
 
 [env]
-  RAILS_ENV = "production"
-  RAILS_LOG_TO_STDOUT = "true"
+  HTTP_PORT = '8080'
+  RAILS_ENV = 'production'
+  RAILS_LOG_TO_STDOUT = 'true'
+
+[processes]
+  app = "./bin/thrust ./bin/rails server"
+
+[[mounts]]
+  source = 'affirm_storage'
+  destination = '/rails/storage'
+  initial_size = '1gb'
 
 [http_service]
-  processes = ["app"]
-  internal_port = 3000
+  internal_port = 8080
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
+  processes = ['app']
 
   [http_service.concurrency]
-    type = "connections"
+    type = 'connections'
     hard_limit = 25
     soft_limit = 20
 
-[[vm]]
-  cpu_kind = "shared"
-  cpus = 1
-  memory = "512mb"
+  [[http_service.checks]]
+    interval = '10s'
+    timeout = '2s'
+    grace_period = '5s'
+    method = 'GET'
+    path = '/up'
+    protocol = 'http'
+    tls_skip_verify = false
 
-[[mounts]]
-  source = "affirm_storage"
-  destination = "/rails/storage"
-  initial_size = "1gb"
+    [http_service.checks.headers]
+      X-Forwarded-Proto = 'https'
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 512
