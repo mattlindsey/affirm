@@ -48,9 +48,9 @@ class DailyFlowController < ApplicationController
   def save_reflection
     @mood_check_in = if params[:mood_check_in_id].present?
                        current_user.mood_check_ins.find_by(id: params[:mood_check_in_id])
-                     else
+    else
                        current_user.mood_check_ins.where("DATE(created_at) = ?", @today).last
-                     end
+    end
 
     begin
       reflection_data = reflection_params
