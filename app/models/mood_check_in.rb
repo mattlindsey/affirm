@@ -1,4 +1,6 @@
 class MoodCheckIn < ApplicationRecord
+  belongs_to :user, optional: true
+
   has_many :reflections, dependent: :destroy, inverse_of: :mood_check_in
   validates :mood_level, presence: true, inclusion: { in: 1..10 }
 

@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  # Authentication
+  get    "login"                        => "sessions#new",          as: :login
+  post   "login"                        => "sessions#create"
+  post   "login/guest"                  => "sessions#guest_login",  as: :guest_login
+  delete "logout"                       => "sessions#destroy",       as: :logout
+  get    "signup"                       => "registrations#new",      as: :signup
+  post   "signup"                       => "registrations#create"
+  get    "password_reset"               => "password_resets#new",    as: :password_reset
+  post   "password_reset"               => "password_resets#create"
+  get    "password_reset/edit"          => "password_resets#edit",   as: :edit_password_reset
+  patch  "password_reset"               => "password_resets#update"
+  get    "/auth/google_oauth2/callback" => "sessions#omniauth"
+  get    "/auth/failure"                => "sessions#oauth_failure"
+
   get "settings/index"
   get "settings/update"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -6,6 +20,10 @@ Rails.application.routes.draw do
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
+
+  if Rails.env.test?
+    get "test/sign_in/:user_id", to: "test/sessions#create", as: :test_sign_in
+  end
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest

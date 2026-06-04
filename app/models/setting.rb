@@ -1,7 +1,5 @@
 class Setting < ApplicationRecord
-  validates :name, length: { maximum: 255 }, allow_blank: true
+  belongs_to :user, optional: true
 
-  def self.instance
-    first_or_create
-  end
+  validates :name, length: { maximum: 255 }, allow_blank: true
 end

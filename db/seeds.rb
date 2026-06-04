@@ -8,6 +8,13 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# Guest account — used for the "Login as guest" button on the sign-in page
+User.find_or_create_by!(email: "random@random.com") do |u|
+  u.password = SecureRandom.hex(32)
+  u.password_confirmation = u.password
+  u.name = "Guest"
+end
+
 # Create sample affirmations
 affirmations = [
 "Today I will honor my own values.",

@@ -1,4 +1,8 @@
 class Affirmation < ApplicationRecord
+  belongs_to :user, optional: true
+
+  scope :for_user, ->(user) { where(user_id: [ user.id, nil ]) }
+
   validates :content, presence: true
 
   def self.generate_ai_affirmation

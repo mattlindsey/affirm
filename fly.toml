@@ -7,7 +7,7 @@ primary_region = "ewr"
 [build]
 
 [deploy]
-  release_command = "bin/rails db:migrate"
+  release_command = "bin/rails db:migrate && bin/rails db:seed"
 
 [processes]
   app = "./bin/rails server -b 0.0.0.0 -p 3000"

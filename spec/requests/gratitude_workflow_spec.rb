@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "GratitudeWorkflow", type: :request do
+  before { sign_in_test_user }
   let(:valid_gratitudes) do
     [
       "I am grateful for the beautiful weather today",
@@ -122,7 +123,8 @@ RSpec.describe "GratitudeWorkflow", type: :request do
   end
 
   it "preserves existing gratitudes when creating new ones" do
-    Gratitude.create!(content: "I am grateful for existing content")
+    signed_in_user = sign_in_test_user
+    Gratitude.create!(content: "I am grateful for existing content", user: signed_in_user)
 
     get gratitude_path
     expect(response.body).to include("I am grateful for existing content")

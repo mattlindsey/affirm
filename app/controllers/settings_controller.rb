@@ -1,12 +1,11 @@
 class SettingsController < ApplicationController
   def index
-    @setting = Setting.instance
+    @setting = current_user.setting || current_user.build_setting
   end
 
   def update
-    @setting = Setting.instance
+    @setting = current_user.setting || current_user.build_setting
     if @setting.update(setting_params)
-      session[:name] = @setting.name
       redirect_to settings_path, notice: "Settings updated successfully."
     else
       render :index

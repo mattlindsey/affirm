@@ -1,7 +1,10 @@
 require "rails_helper"
 
 RSpec.describe "GratitudeSystem", type: :system do
-  before { driven_by(:selenium, using: :headless_chrome, screen_size: [ 1400, 1400 ]) }
+  before do
+    driven_by(:selenium, using: :headless_chrome, screen_size: [ 1400, 1400 ])
+    sign_in_as_test_user
+  end
 
   let(:valid_gratitudes) do
     [

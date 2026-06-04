@@ -1,0 +1,11 @@
+Hi <%= @user.name.presence || @user.email %>,
+
+Someone requested a password reset for your Affirm account.
+
+To reset your password, visit the link below (expires in 2 hours):
+
+<%= @url %>
+
+If you didn't request this, you can safely ignore this email.
+
+— The Affirm team

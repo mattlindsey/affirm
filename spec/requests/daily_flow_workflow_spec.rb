@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "DailyFlowWorkflow", type: :request do
+  before { sign_in_test_user }
   it "completes daily workflow from start to finish" do
     get daily_flow_start_path
     expect(response).to redirect_to(daily_flow_check_in_path)
