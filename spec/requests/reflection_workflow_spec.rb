@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "ReflectionWorkflow", type: :request do
+  before { sign_in_test_user }
   it "saves a reflection and shows it on completion" do
     post daily_flow_save_check_in_path, params: { mood_check_in: { mood_level: 6 } }
     expect(response).to redirect_to(daily_flow_affirmation_path)

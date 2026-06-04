@@ -1,7 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "Gratitude", type: :request do
-  let!(:gratitude) { create(:gratitude) }
+  let(:signed_in_user) { sign_in_test_user }
+  before { signed_in_user }
+  let!(:gratitude) { create(:gratitude, user: signed_in_user) }
 
   it "gets index" do
     get gratitude_path

@@ -1,0 +1,15 @@
+<p>Hi <%= @user.name.presence || @user.email %>,</p>
+
+<p>Someone requested a password reset for your Affirm account. If this was you, click the button below to set a new password. This link expires in <strong>2 hours</strong>.</p>
+
+<p style="margin: 24px 0;">
+  <a href="<%= @url %>" style="background-color:#2563eb;color:#ffffff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:600;">
+    Reset my password
+  </a>
+</p>
+
+<p>Or copy and paste this URL into your browser:<br><%= @url %></p>
+
+<p>If you didn't request this, you can ignore this email — your password won't change.</p>
+
+<p>— The Affirm team</p>

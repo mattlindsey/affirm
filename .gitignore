@@ -38,3 +38,10 @@
 
 /node_modules
 /vendor
+
+# SQLite database files
+/db/*.sqlite3
+/db/*.sqlite3-*
+
+# macOS metadata
+.DS_Store

@@ -1,0 +1,41 @@
+<%= content_for :title, "Set New Password — Affirm" %>
+
+<div class="min-h-screen flex items-center justify-center -mt-28">
+  <div class="w-full max-w-md">
+    <div class="bg-white rounded-2xl shadow-lg p-8">
+      <h1 class="text-2xl font-bold text-gray-900 mb-6 text-center">Set a new password</h1>
+
+      <% if @user.errors.any? %>
+        <div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <ul class="list-disc list-inside text-sm text-red-700 space-y-1">
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_with model: @user, url: password_reset_path, method: :patch, class: "space-y-4" do |f| %>
+        <%= hidden_field_tag :token, params[:token] %>
+
+        <div>
+          <%= f.label :password, "New password", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.password_field :password,
+                autocomplete: "new-password",
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+                placeholder: "Min. 8 characters" %>
+        </div>
+
+        <div>
+          <%= f.label :password_confirmation, "Confirm new password", class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.password_field :password_confirmation,
+                autocomplete: "new-password",
+                class: "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+
+        <%= f.submit "Update password",
+              class: "w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition" %>
+      <% end %>
+    </div>
+  </div>
+</div>

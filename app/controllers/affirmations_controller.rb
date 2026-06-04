@@ -1,10 +1,10 @@
 class AffirmationsController < ApplicationController
   def index
-    @affirmations = Affirmation.order(created_at: :desc)
+    @affirmations = Affirmation.for_user(current_user).order(created_at: :desc)
   end
 
   def random
-    @affirmation = Affirmation.order("RANDOM()").first
+    @affirmation = Affirmation.for_user(current_user).order("RANDOM()").first
   end
 
   def ai
@@ -15,7 +15,7 @@ class AffirmationsController < ApplicationController
   end
 
   def create
-    @affirmation = Affirmation.new(affirmation_params)
+    @affirmation = current_user.affirmations.new(affirmation_params)
     if @affirmation.save
       redirect_to affirmations_path, notice: "Affirmation saved successfully."
     else
@@ -24,7 +24,7 @@ class AffirmationsController < ApplicationController
   end
 
   def destroy
-    @affirmation = Affirmation.find(params[:id])
+    @affirmation = current_user.affirmations.find(params[:id])
     @affirmation.destroy
     redirect_to affirmations_path, notice: "Affirmation was successfully deleted."
   end

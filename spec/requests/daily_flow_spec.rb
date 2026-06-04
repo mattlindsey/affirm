@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "DailyFlow", type: :request do
+  before { sign_in_test_user }
   it "redirects start to check_in" do
     get daily_flow_start_path
     expect(response).to redirect_to(daily_flow_check_in_path)

@@ -1,7 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "Affirmations", type: :request do
-  let(:affirmation) { create(:affirmation) }
+  let(:signed_in_user) { sign_in_test_user }
+  before { signed_in_user }
+  let(:affirmation) { create(:affirmation, user: signed_in_user) }
 
   it "gets index" do
     get affirmations_path
