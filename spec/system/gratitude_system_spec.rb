@@ -28,9 +28,6 @@ RSpec.describe "GratitudeSystem", type: :system do
   it "creates new gratitudes through daily workflow" do
     visit gratitude_path
     click_on "📝 Create Today's Gratitudes"
-    expect(page).to have_text("Daily Check-In")
-
-    visit daily_flow_gratitude_path
     expect(page).to have_text("Record Your Gratitudes")
 
     textareas = page.all("textarea[name='gratitude[contents][]']")
@@ -108,7 +105,7 @@ RSpec.describe "GratitudeSystem", type: :system do
     expect(page).to have_text("Gratitude")
 
     click_on "📝 Create Today's Gratitudes"
-    expect(page).to have_text("Daily Check-In")
+    expect(page).to have_text("Record Your Gratitudes")
 
     visit gratitude_path
     click_on "🎲 Get Random Gratitude"
