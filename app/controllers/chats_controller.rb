@@ -14,7 +14,10 @@ class ChatsController < ApplicationController
 
   def permitted_history
     params.fetch(:history, []).filter_map do |msg|
-      msg.permit(:role, :content) if msg.is_a?(ActionController::Parameters)
+      next unless msg.is_a?(ActionController::Parameters)
+      role = msg[:role].to_s
+      next unless %w[user assistant].include?(role)
+      { role:, content: msg[:content].to_s }
     end
   end
 end
