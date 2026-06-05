@@ -4,6 +4,7 @@ export default class extends Controller {
   static targets = ["openBtn", "backdrop", "closeBtn", "sendBtn", "input", "body"]
 
   connect() {
+    this.history = []
     if (!this.hasOpenBtnTarget || !this.hasBackdropTarget) {
       console.error("Chat popup elements not found")
       return
@@ -36,13 +37,42 @@ export default class extends Controller {
     }
   }
 
-  send() {
+  async send() {
     const message = this.inputTarget.value.trim()
     if (!message) return
 
     this.appendMessage(message, "user")
     this.inputTarget.value = ""
-    setTimeout(() => this.appendMessage("Thanks — this is a mock reply.\nYou can replace this with API logic later.", "bot"), 600)
+    this.setLoading(true)
+
+    const typingEl = this.appendTyping()
+
+    try {
+      const response = await fetch("/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({ message, history: this.history })
+      })
+
+      const data = await response.json()
+      typingEl.remove()
+
+      if (response.ok) {
+        this.appendMessage(data.reply, "bot")
+        this.history.push({ role: "user", content: message })
+        this.history.push({ role: "assistant", content: data.reply })
+      } else {
+        this.appendMessage("Sorry, I couldn't respond right now.", "bot")
+      }
+    } catch {
+      typingEl.remove()
+      this.appendMessage("Unable to connect. Please try again.", "bot")
+    } finally {
+      this.setLoading(false)
+    }
   }
 
   handleEnter(e) {
@@ -50,6 +80,20 @@ export default class extends Controller {
       e.preventDefault()
       this.send()
     }
+  }
+
+  setLoading(loading) {
+    this.inputTarget.disabled = loading
+    this.sendBtnTarget.disabled = loading
+  }
+
+  appendTyping() {
+    const wrapper = document.createElement("div")
+    wrapper.className = "chat-msg bot"
+    wrapper.innerHTML = "<p>…</p>"
+    this.bodyTarget.appendChild(wrapper)
+    this.bodyTarget.scrollTop = this.bodyTarget.scrollHeight
+    return wrapper
   }
 
   appendMessage(text, who) {

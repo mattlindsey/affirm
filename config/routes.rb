@@ -50,6 +50,8 @@ Rails.application.routes.draw do
 
   get "checkins" => "checkins#index", as: :checkins
 
+  post "chat" => "chats#create"
+
   resources :affirmations, only: [ :index, :create, :destroy ]
   get "gratitude" => "gratitude#index", as: :gratitude
   get "gratitude/random" => "gratitude#random", as: :gratitude_random
