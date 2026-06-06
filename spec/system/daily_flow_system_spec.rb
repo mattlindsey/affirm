@@ -10,7 +10,7 @@ RSpec.describe "DailyFlowSystem", type: :system do
     visit root_path
     expect(page).to have_text("Welcome")
 
-    click_on "Start Daily Workflow"
+    click_on "Begin Your Day →"
 
     expect(page).to have_text("Daily Check-In")
     expect(page).to have_text("How are you feeling today?")

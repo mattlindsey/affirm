@@ -69,7 +69,7 @@ export default class extends Controller {
       }
     } catch {
       typingEl.remove()
-      this.appendMessage("Unable to connect. Please try again.", "bot")
+      this.appendMessage("Unable to connect. Check API key and please try again.", "bot")
     } finally {
       this.setLoading(false)
     }
