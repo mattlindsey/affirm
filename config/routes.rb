@@ -13,8 +13,6 @@ Rails.application.routes.draw do
   get    "/auth/google_oauth2/callback" => "sessions#omniauth"
   get    "/auth/failure"                => "sessions#oauth_failure"
 
-  get "settings/index"
-  get "settings/update"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -45,8 +43,9 @@ Rails.application.routes.draw do
   get "daily_flow/completion", to: "daily_flow#completion", as: :daily_flow_completion
 
   # Settings routes
-  get "settings", to: "settings#index", as: :settings
-  post "settings", to: "settings#update"
+  get    "settings",         to: "settings#index",          as: :settings
+  post   "settings",         to: "settings#update"
+  delete "settings/api_key", to: "settings#destroy_api_key", as: :settings_api_key
 
   get "checkins" => "checkins#index", as: :checkins
 

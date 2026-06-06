@@ -12,9 +12,11 @@ RSpec.describe Chat::ReplyService, type: :service do
       allow(d).to receive(:with_instructions).and_return(d)
     end
   end
+  let(:context_double) { instance_double(RubyLLM::Context) }
 
   before do
-    allow(RubyLLM).to receive(:chat).with(model: "gpt-4o-mini").and_return(chat_double)
+    allow(RubyLLM).to receive(:context).and_return(context_double)
+    allow(context_double).to receive(:chat).with(model: "gpt-4o-mini").and_return(chat_double)
   end
 
   describe ".call" do

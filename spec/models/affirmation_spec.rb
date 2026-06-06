@@ -9,11 +9,13 @@ RSpec.describe Affirmation, type: :model do
   end
 
   describe ".generate_ai_affirmation" do
+    let(:context_double) { instance_double(RubyLLM::Context) }
     let(:chat) { instance_double(RubyLLM::Chat) }
     let(:message) { instance_double(RubyLLM::Message, content: "You are enough just as you are.") }
 
     before do
-      allow(RubyLLM).to receive(:chat).and_return(chat)
+      allow(RubyLLM).to receive(:context).and_return(context_double)
+      allow(context_double).to receive(:chat).with(model: "gpt-4o-mini").and_return(chat)
       allow(chat).to receive(:with_instructions).and_return(chat)
       allow(chat).to receive(:ask).and_return(message)
     end
@@ -24,11 +26,11 @@ RSpec.describe Affirmation, type: :model do
 
     it "calls the chat with gpt-4o-mini" do
       described_class.generate_ai_affirmation
-      expect(RubyLLM).to have_received(:chat).with(model: "gpt-4o-mini")
+      expect(context_double).to have_received(:chat).with(model: "gpt-4o-mini")
     end
 
     it "returns nil when the API raises an error" do
-      allow(RubyLLM).to receive(:chat).and_raise(StandardError)
+      allow(RubyLLM).to receive(:context).and_raise(StandardError)
       expect(described_class.generate_ai_affirmation).to be_nil
     end
   end
