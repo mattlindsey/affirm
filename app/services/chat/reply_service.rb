@@ -10,17 +10,18 @@ module Chat
       def success? = error.nil?
     end
 
-    def self.call(message:, history: [])
-      new(message:, history:).call
+    def self.call(message:, history: [], api_key: nil)
+      new(message:, history:, api_key:).call
     end
 
-    def initialize(message:, history: [])
+    def initialize(message:, history: [], api_key: nil)
       @message = message
       @history = history
+      @api_key = api_key
     end
 
     def call
-      chat = RubyLLM.chat(model: "gpt-4o-mini").with_instructions(SYSTEM_PROMPT)
+      chat = llm_context.chat(model: "gpt-4o-mini").with_instructions(SYSTEM_PROMPT)
 
       @history.each do |msg|
         role = msg[:role] == "user" ? :user : :assistant
@@ -31,6 +32,16 @@ module Chat
       Result.new(reply: response.content)
     rescue RubyLLM::Error => e
       Result.new(error: e.message)
+    end
+
+    private
+
+    def llm_context
+      if @api_key.present?
+        RubyLLM.context { |config| config.openai_api_key = @api_key }
+      else
+        RubyLLM.context
+      end
     end
   end
 end
