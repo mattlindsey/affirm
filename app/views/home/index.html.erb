@@ -1,3 +1,4 @@
+<div data-controller="chat-popup">
 <div class="max-w-3xl mx-auto p-6 text-center">
   <h1 class="text-4xl font-bold text-gray-800 mb-8">Welcome<%= @name.present? ? ", #{@name}" : "" %>!</h1>
   <% unless @name.present? %>
@@ -7,16 +8,19 @@
 
   <!-- Daily Workflow Feature -->
   <div class="mb-10">
-    <%= link_to daily_flow_start_path, class: "block group" do %>
-      <div class="border-4 border-blue-500 rounded-2xl p-8 hover:shadow-2xl transition bg-gradient-to-r from-blue-50 to-purple-50">
-        <div class="text-5xl mb-3">🌟</div>
-        <h2 class="text-3xl font-bold text-blue-700 group-hover:text-blue-800 mb-2">Start Daily Workflow</h2>
-        <p class="text-gray-700 text-lg">Complete your daily check-in, affirmation, gratitude, and reflection in one guided flow</p>
-        <div class="mt-4 inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold group-hover:bg-blue-700 transition">
-          Begin Your Day →
-        </div>
+    <div class="border-4 border-blue-500 rounded-2xl p-8 hover:shadow-2xl transition bg-linear-to-r from-blue-50 to-purple-50">
+      <div class="text-5xl mb-3">🌟</div>
+      <h2 class="text-3xl font-bold text-blue-700 mb-2">Start Daily Workflow</h2>
+      <p class="text-gray-700 text-lg">Complete your daily check-in, affirmation, gratitude, and reflection in one guided flow</p>
+      <div class="mt-4 flex items-center justify-center gap-4 flex-wrap">
+        <%= link_to "Begin Your Day →", daily_flow_start_path, class: "inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition" %>
+        <button
+          data-action="click->chat-popup#open"
+          class="inline-flex items-center gap-2 bg-white border-2 border-sky-500 text-sky-700 px-5 py-2 rounded-lg font-semibold hover:bg-sky-50 transition">
+          💬 Chat with wellness coach
+        </button>
       </div>
-    <% end %>
+    </div>
   </div>
 
   <p class="text-md text-gray-500 mb-6">Or jump to a specific section:</p>
@@ -48,7 +52,7 @@
   </div>
 </div>
 
-<div data-controller="chat-popup">
+
   <style>
     /* Chat popup styles */
     [data-chat-popup-target="backdrop"] { display: none; }
@@ -94,7 +98,7 @@
       <div
         data-chat-popup-target="body"
         class="px-3 py-3 flex-1 overflow-auto bg-white">
-        <div class="chat-msg bot"><p>Hi! I'm your wellness companion. Ask me anything about affirmations, gratitude, or mindfulness.</p></div>
+        <div class="chat-msg bot"><p>Hi! I'm your wellness companion. I use Cognitive Behavioral Therapy (CBT) principles. Ask me anything about your thoughts, feelings, or experiences.</p></div>
       </div>
 
       <div class="px-3 py-2 border-t bg-white">
@@ -116,5 +120,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 
