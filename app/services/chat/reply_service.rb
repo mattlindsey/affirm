@@ -33,15 +33,5 @@ module Chat
     rescue RubyLLM::Error => e
       Result.new(error: e.message)
     end
-
-    private
-
-    def llm_context
-      if @api_key.present?
-        RubyLLM.context { |config| config.openai_api_key = @api_key }
-      else
-        RubyLLM.context
-      end
-    end
   end
 end
