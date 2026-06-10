@@ -3,13 +3,13 @@ class ConversationsController < ApplicationController
 
   def index
     authorize Conversation
-    @conversations = policy_scope(Conversation).recent
+    @conversations = policy_scope(Conversation).recent.with_first_user_message
     render :index
   end
 
   def show
     @messages      = @conversation.messages.chronological
-    @conversations = policy_scope(Conversation).recent
+    @conversations = policy_scope(Conversation).recent.with_first_user_message
   end
 
   def create

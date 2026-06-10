@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   allow_browser versions: :modern
 
   before_action :authenticate_user!
+  before_action :set_no_store_headers
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
@@ -17,6 +18,10 @@ class ApplicationController < ActionController::Base
 
   def user_signed_in?
     current_user.present?
+  end
+
+  def set_no_store_headers
+    response.headers["Cache-Control"] = "no-store"
   end
 
   def authenticate_user!
