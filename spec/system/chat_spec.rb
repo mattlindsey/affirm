@@ -95,7 +95,7 @@ RSpec.describe "Chat — US1: conversations survive page reload", type: :system 
       visit conversation_path(conv1)
 
       within("#conversation-sidebar") do
-        click_link "+ New"
+        click_link "New convo"
       end
 
       expect(page).to have_current_path(conversations_path)
