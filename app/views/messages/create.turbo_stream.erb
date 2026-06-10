@@ -1,0 +1,2 @@
+<%= turbo_stream.append "messages", partial: "conversations/message", locals: { message: @user_message } %>
+<%= turbo_stream.append "messages", partial: "conversations/message", locals: { message: @assistant_message } %>
