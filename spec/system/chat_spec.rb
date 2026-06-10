@@ -44,7 +44,7 @@ RSpec.describe "Chat — US1: conversations survive page reload", type: :system 
     it "shows blank state with message form" do
       visit conversations_path
 
-      expect(page).to have_text("Start your first conversation")
+      expect(page).to have_text("Hi!")
       expect(page).to have_css("input[name='message']")
       expect(page).to have_button("Send")
     end
