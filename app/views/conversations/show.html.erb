@@ -9,16 +9,15 @@
   <nav id="conversation-sidebar" class="w-56 shrink-0">
     <div class="flex items-center justify-between mb-3">
       <h2 class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Conversations</h2>
-      <%= link_to conversations_path, class: "text-xs text-sky-600 hover:underline" do %>
-        + New
-      <% end %>
+      <%= link_to "New convo", conversations_path, class: "text-xs px-2 py-1 bg-sky-600 text-white font-semibold rounded-lg hover:bg-sky-700 transition" %>
     </div>
     <ul class="space-y-1">
       <% @conversations.each do |conv| %>
         <li>
           <%= link_to conversation_path(conv),
-                      class: "block px-3 py-2 rounded-lg text-sm truncate transition #{ conv == @conversation ? 'bg-sky-100 text-sky-800 font-semibold' : 'text-gray-700 hover:bg-gray-100' }" do %>
-            <%= conv.updated_at.strftime("%-m/%-d %H:%M") %>
+                      class: "block px-3 py-2 rounded-lg text-sm transition #{ conv == @conversation ? 'bg-sky-100 text-sky-800 font-semibold' : 'text-gray-700 hover:bg-gray-100' }" do %>
+            <span class="text-xs opacity-60"><%= conv.updated_at.in_time_zone.strftime("%-m/%-d %-I:%M %p") %></span>
+            <span class="block truncate"><%= conv.first_user_message %></span>
           <% end %>
         </li>
       <% end %>
