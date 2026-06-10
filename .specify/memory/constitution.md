@@ -14,9 +14,9 @@
   Modified principles: N/A (initial creation)
 
   Templates updated:
-  ✅ .specify/.specify/templates/plan-template.md — Updated Technical Context block:
+  ✅ .specify/templates/plan-template.md — Updated Technical Context block:
        Ruby 3.3.6 → Ruby 4.0; Minitest → RSpec, FactoryBot, Capybara
-  ✅ .specify/.specify/templates/tasks-template.md — Updated Path Conventions:
+  ✅ .specify/templates/tasks-template.md — Updated Path Conventions:
        test/ paths (Minitest) → spec/ paths (RSpec)
 
   Follow-up TODOs:

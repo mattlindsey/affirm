@@ -1,4 +1,3 @@
-<div data-controller="chat-popup">
 <div class="max-w-3xl mx-auto p-6 text-center">
   <h1 class="text-4xl font-bold text-gray-800 mb-8">Welcome<%= @name.present? ? ", #{@name}" : "" %>!</h1>
   <% unless @name.present? %>
@@ -14,11 +13,9 @@
       <p class="text-gray-700 text-lg">Complete your daily check-in, affirmation, gratitude, and reflection in one guided flow</p>
       <div class="mt-4 flex items-center justify-center gap-4 flex-wrap">
         <%= link_to "Begin Your Day →", daily_flow_start_path, class: "inline-block bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition" %>
-        <button
-          data-action="click->chat-popup#open"
-          class="inline-flex items-center gap-2 bg-white border-2 border-sky-500 text-sky-700 px-5 py-2 rounded-lg font-semibold hover:bg-sky-50 transition">
+        <%= link_to conversations_path, class: "inline-flex items-center gap-2 bg-white border-2 border-sky-500 text-sky-700 px-5 py-2 rounded-lg font-semibold hover:bg-sky-50 transition" do %>
           💬 Chat with wellness coach
-        </button>
+        <% end %>
       </div>
     </div>
   </div>
@@ -51,75 +48,3 @@
     <% end %>
   </div>
 </div>
-
-
-  <style>
-    /* Chat popup styles */
-    [data-chat-popup-target="backdrop"] { display: none; }
-    [data-chat-popup-target="backdrop"].active { display: flex; }
-
-    .chat-msg { display: block; padding: 10px 14px; margin: 8px 0; max-width: 85%; border-radius: 14px; }
-    .chat-msg p { margin: 0; white-space: pre-wrap; }
-    .chat-msg.user { margin-left: auto; background: #0ea5e9; color: #fff; }
-    .chat-msg.bot  { margin-right: auto; background: #f1f5f9; color: #0f172a; }
-
-    [data-chat-popup-target="body"] { display: block; }
-  </style>
-
-  <!-- Floating chat button -->
-  <button
-    data-chat-popup-target="openBtn"
-    data-action="click->chat-popup#open"
-    aria-label="Open chat"
-    class="fixed right-6 bottom-6 bg-sky-600 text-white rounded-full w-14 h-14 flex items-center justify-center shadow-lg z-50"
-    style="border-radius: 9999px;">
-    💬
-  </button>
-
-  <!-- Chat modal/backdrop -->
-  <div
-    data-chat-popup-target="backdrop"
-    data-action="click->chat-popup#closeOnBackdropClick keydown->chat-popup#handleKeyDown"
-    class="fixed inset-0 bg-black/40 z-40 items-end justify-end p-4"
-    role="dialog"
-    aria-modal="true">
-    <div class="bg-white rounded-xl shadow-xl flex flex-col overflow-hidden" style="width:420px; max-width:calc(100% - 32px); height:560px;">
-      <div class="flex items-center justify-between px-4 py-2 bg-slate-50 border-b">
-        <strong class="text-sm text-slate-800">Chat</strong>
-        <button
-          data-chat-popup-target="closeBtn"
-          data-action="click->chat-popup#close"
-          aria-label="Close chat"
-          class="text-slate-600 hover:text-slate-900">
-          ✕
-        </button>
-      </div>
-
-      <div
-        data-chat-popup-target="body"
-        class="px-3 py-3 flex-1 overflow-auto bg-white">
-        <div class="chat-msg bot"><p>Hi! I'm your wellness companion. I use Cognitive Behavioral Therapy (CBT) principles. Ask me anything about your thoughts, feelings, or experiences.</p></div>
-      </div>
-
-      <div class="px-3 py-2 border-t bg-white">
-        <div class="flex gap-2">
-          <input
-            data-chat-popup-target="input"
-            data-action="keydown->chat-popup#handleEnter"
-            type="text"
-            placeholder="Type a message…"
-            aria-label="Chat message"
-            class="flex-1 px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300" />
-          <button
-            data-chat-popup-target="sendBtn"
-            data-action="click->chat-popup#send"
-            class="px-3 py-2 bg-sky-600 text-white rounded-lg">
-            Send
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-

@@ -49,7 +49,9 @@ Rails.application.routes.draw do
 
   get "checkins" => "checkins#index", as: :checkins
 
-  post "chat" => "chats#create"
+  resources :conversations, only: %i[index show create] do
+    resources :messages, only: %i[create]
+  end
 
   resources :affirmations, only: [ :index, :create, :destroy ]
   get "gratitude" => "gratitude#index", as: :gratitude

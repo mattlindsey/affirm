@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_06_172304) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_10_152546) do
   create_table "affirmations", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
@@ -19,12 +19,29 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_172304) do
     t.index ["user_id"], name: "index_affirmations_on_user_id"
   end
 
+  create_table "conversations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id", "updated_at"], name: "index_conversations_on_user_id_and_updated_at"
+    t.index ["user_id"], name: "index_conversations_on_user_id"
+  end
+
   create_table "gratitudes", force: :cascade do |t|
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.index ["user_id"], name: "index_gratitudes_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content", null: false
+    t.integer "conversation_id", null: false
+    t.datetime "created_at", null: false
+    t.string "role", null: false
+    t.datetime "updated_at", null: false
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
   end
 
   create_table "mood_check_ins", force: :cascade do |t|
@@ -68,7 +85,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_06_172304) do
   end
 
   add_foreign_key "affirmations", "users", on_delete: :cascade
+  add_foreign_key "conversations", "users", on_delete: :cascade
   add_foreign_key "gratitudes", "users", on_delete: :cascade
+  add_foreign_key "messages", "conversations", on_delete: :cascade
   add_foreign_key "mood_check_ins", "users", on_delete: :cascade
   add_foreign_key "reflections", "mood_check_ins"
   add_foreign_key "reflections", "users", on_delete: :cascade

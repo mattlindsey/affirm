@@ -2,6 +2,7 @@ class User < ApplicationRecord
   has_secure_password validations: false
 
   has_one  :setting,         dependent: :destroy
+  has_many :conversations,   dependent: :destroy
   has_many :affirmations,    dependent: :destroy
   has_many :gratitudes,      dependent: :destroy
   has_many :mood_check_ins,  dependent: :destroy
