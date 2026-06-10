@@ -1,47 +1,51 @@
 # Lessons Learned
 
-A running log of implementation insights captured during SDD feature development.
-Entries tagged by `[phase]` and `[category]` for future reference.
+**Purpose**: Cross-feature learnings that accumulate over time and feed forward into future planning and implementation.
+**Last Updated**: —
 
----
+<!--
+  USAGE INSTRUCTIONS (for AI agents):
 
-## 2026-06-06 — OpenAI API Key Settings
+  When READING this file:
+  - Filter entries by phase tag if you only need lessons relevant to your current phase
+  - Prioritize entries tagged [phase:all] as they apply universally
+  - Check the category tag to find entries relevant to your current concern
+  - Most recent entries appear at the bottom of each section
 
-**Feature**: `openai-api-key-settings`
+  When WRITING to this file:
+  - Append new entries to the appropriate section below
+  - Always include: date, feature reference, phase tag, category tag
+  - Keep entries concise (2-4 lines max)
+  - Focus on actionable insight, not narrative
+  - Update the "Last Updated" date above
 
-### [phase:implement] [category:tooling] Ruby version — always use mise
+  Entry format:
+  - **[YYYY-MM-DD] [feature-branch-name]** `[phase:X]` `[category:Y]` —
+    Brief description of the lesson. What happened, what was learned, what to do differently.
 
-**Lesson**: All Rails/Bundler commands must be prefixed with `mise exec ruby@4.0.2 --`. The macOS system Ruby 2.6 intercepts bare `bin/rails` calls and fails with a Bundler version mismatch before the app even boots.
+  Phase tags: specify, plan, implement, all
+  Category tags: error-recovery, pattern, tooling, architecture, testing, performance, dependency, process
 
-**Pattern**: `mise exec ruby@4.0.2 -- bin/rails ...` / `mise exec ruby@4.0.2 -- bundle exec rspec ...`
+  ARCHIVAL: When this file exceeds 50 entries, move all but the 20 most recent
+  entries to .specify/memory/lessons-learned-archive.md, preserving section structure.
+-->
 
----
+## Architecture & Design
 
-### [phase:implement] [category:ruby_llm] Per-request API key override
+<!-- Lessons about system design, patterns chosen, structural decisions -->
 
-**Lesson**: RubyLLM 1.x supports per-request configuration via `RubyLLM.context`. This does **not** mutate the global config and is thread-safe.
+## Testing & Quality
 
-**Pattern**:
-```ruby
-context = RubyLLM.context { |config| config.openai_api_key = user_key }
-chat = context.chat(model: "gpt-4o-mini")
-```
+<!-- Lessons about testing strategies, coverage gaps, quality processes -->
 
-When no override is needed, `RubyLLM.context` (no block) still returns a valid `Context` that uses the global config.
+## Dependencies & Tooling
 
----
+<!-- Lessons about gems, libraries, build tools, environment issues -->
 
-### [phase:implement] [category:testing] Updating RubyLLM mocks after context refactor
+## Process & Workflow
 
-**Lesson**: Existing specs that stub `allow(RubyLLM).to receive(:chat)` break when the service switches from `RubyLLM.chat(...)` to routing through `RubyLLM.context.chat(...)`. The fix is a two-level mock:
+<!-- Lessons about the SDD pipeline itself, command usage, workflow improvements -->
 
-```ruby
-let(:context_double) { instance_double(RubyLLM::Context) }
+## Error Patterns
 
-before do
-  allow(RubyLLM).to receive(:context).and_return(context_double)
-  allow(context_double).to receive(:chat).with(model: "gpt-4o-mini").and_return(chat_double)
-end
-```
-
-Do **not** use `and_yield` on the context mock — the no-api_key path calls `RubyLLM.context` without a block and `and_yield` will raise.
+<!-- Recurring error types, common failure modes, debugging strategies -->
