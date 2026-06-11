@@ -14,10 +14,16 @@
       </div>
       <ul class="space-y-1">
         <% @conversations.each do |conv| %>
-          <li>
-            <%= link_to conversation_path(conv), class: "block px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition" do %>
+          <li class="flex items-center gap-1 group">
+            <%= link_to conversation_path(conv), class: "flex-1 min-w-0 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition" do %>
               <span class="text-xs text-gray-400"><%= conv.updated_at.in_time_zone.strftime("%-m/%-d %-I:%M %p") %></span>
               <span class="block truncate"><%= conv.first_user_message %></span>
+            <% end %>
+            <%= button_to conversation_path(conv),
+                          method: :delete,
+                          form: { data: { turbo_confirm: "Delete this conversation?" } },
+                          class: "opacity-0 group-hover:opacity-100 shrink-0 px-1.5 py-1 text-gray-400 hover:text-red-500 transition rounded" do %>
+              &#x2715;
             <% end %>
           </li>
         <% end %>
