@@ -131,6 +131,49 @@ RSpec.describe "Conversations", type: :request do
     end
   end
 
+  describe "PATCH /conversations/:id (update)" do
+    let(:conversation) { create(:conversation, user:) }
+
+    context "when unauthenticated" do
+      it "redirects to login" do
+        patch conversation_path(conversation), params: { conversation: { use_positive_psychology: "1" } }
+        expect(response).to redirect_to(login_path)
+      end
+    end
+
+    context "when authenticated as the owner" do
+      before { sign_in(user) }
+
+      it "sets use_positive_psychology to true" do
+        expect {
+          patch conversation_path(conversation), params: { conversation: { use_positive_psychology: "1" } }
+        }.to change { conversation.reload.use_positive_psychology }.from(false).to(true)
+      end
+
+      it "redirects to the conversation" do
+        patch conversation_path(conversation), params: { conversation: { use_positive_psychology: "1" } }
+        expect(response).to redirect_to(conversation_path(conversation))
+      end
+
+      it "cannot unset the flag by sending false" do
+        conversation.update!(use_positive_psychology: true)
+        patch conversation_path(conversation), params: { conversation: { use_positive_psychology: "0" } }
+        expect(conversation.reload.use_positive_psychology).to be true
+      end
+    end
+
+    context "when authenticated as a different user" do
+      before { sign_in(other) }
+
+      it "returns 404 and does not update the conversation" do
+        expect {
+          patch conversation_path(conversation), params: { conversation: { use_positive_psychology: "1" } }
+        }.not_to change { conversation.reload.use_positive_psychology }
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   describe "POST /conversations (create)" do
     context "when unauthenticated" do
       it "redirects to login" do
@@ -156,6 +199,20 @@ RSpec.describe "Conversations", type: :request do
         post conversations_path, params: { message: "Hello" }
         expect(Conversations::SendMessageService).to have_received(:call).with(
           hash_including(user: user, message: "Hello")
+        )
+      end
+
+      it "passes use_positive_psychology: false when checkbox is unchecked" do
+        post conversations_path, params: { message: "Hello" }
+        expect(Conversations::SendMessageService).to have_received(:call).with(
+          hash_including(use_positive_psychology: false)
+        )
+      end
+
+      it "passes use_positive_psychology: true when checkbox is checked" do
+        post conversations_path, params: { message: "Hello", use_positive_psychology: "1" }
+        expect(Conversations::SendMessageService).to have_received(:call).with(
+          hash_including(use_positive_psychology: true)
         )
       end
 

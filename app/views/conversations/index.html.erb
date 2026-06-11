@@ -32,29 +32,38 @@
   <% end %>
 
   <div class="flex-1 min-w-0">
-    <h1 class="text-2xl font-bold text-gray-800 mb-4">Wellness Coach Chat</h1>
-
-    <div class="bg-white rounded-xl shadow flex flex-col" style="height: 520px;">
-      <div class="flex-1 overflow-auto px-4 py-4">
-        <div class="chat-msg assistant">
-          <p><%= Conversations::SendMessageService::INTRO_MESSAGE %></p>
+    <%= form_with url: conversations_path,
+                  data: { controller: "conversation", action: "submit->conversation#disableSend turbo:submit-end->conversation#enableSend" } do |f| %>
+      <div class="flex items-center gap-4 mb-4">
+        <h1 class="text-2xl font-bold text-gray-800">Wellness Coach Chat</h1>
+        <div class="flex items-center gap-2">
+          <%= f.check_box :use_positive_psychology,
+                          class: "w-4 h-4 accent-sky-600 cursor-pointer" %>
+          <%= f.label :use_positive_psychology, "Use Positive Psychology",
+                      class: "text-sm font-medium text-gray-600 select-none" %>
         </div>
       </div>
 
-      <div class="border-t px-4 py-3 bg-white rounded-b-xl">
-        <%= form_with url: conversations_path,
-                      data: { controller: "conversation", action: "submit->conversation#disableSend turbo:submit-end->conversation#enableSend" },
-                      class: "flex gap-2" do |f| %>
-          <%= f.text_field :message,
-                           placeholder: "What's on your mind?",
-                           autocomplete: "off",
-                           data: { conversation_target: "input" },
-                           class: "flex-1 px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300" %>
-          <%= f.submit "Send",
-                       data: { conversation_target: "sendBtn" },
-                       class: "px-4 py-2 bg-sky-600 text-white rounded-lg font-semibold hover:bg-sky-700 transition" %>
-        <% end %>
+      <div class="bg-white rounded-xl shadow flex flex-col" style="height: 520px;">
+        <div class="flex-1 overflow-auto px-4 py-4">
+          <div class="chat-msg assistant">
+            <p><%= Conversations::SendMessageService::INTRO_MESSAGE %></p>
+          </div>
+        </div>
+
+        <div class="border-t px-4 py-3 bg-white rounded-b-xl">
+          <div class="flex gap-2">
+            <%= f.text_field :message,
+                             placeholder: "What's on your mind?",
+                             autocomplete: "off",
+                             data: { conversation_target: "input" },
+                             class: "flex-1 px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300" %>
+            <%= f.submit "Send",
+                         data: { conversation_target: "sendBtn" },
+                         class: "px-4 py-2 bg-sky-600 text-white rounded-lg font-semibold hover:bg-sky-700 transition" %>
+          </div>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>

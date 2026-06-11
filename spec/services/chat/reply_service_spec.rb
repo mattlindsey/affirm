@@ -43,6 +43,27 @@ RSpec.describe Chat::ReplyService, type: :service do
       expect(chat_double).to have_received(:with_instructions).with(a_string_including("wellness companion"))
     end
 
+    it "uses the CBT system prompt by default" do
+      service.call
+      expect(chat_double).to have_received(:with_instructions).with(a_string_including("CBT"))
+    end
+
+    context "with use_positive_psychology: true" do
+      subject(:service) { described_class.new(message: message, history: history, use_positive_psychology: true) }
+
+      it "uses the positive psychology system prompt" do
+        service.call
+        expect(chat_double).to have_received(:with_instructions).with(a_string_including("Positive Psychology"))
+      end
+
+      it "does not use the CBT-only prompt" do
+        service.call
+        expect(chat_double).to have_received(:with_instructions).with(
+          satisfy { |prompt| prompt != Chat::ReplyService::SYSTEM_PROMPT }
+        )
+      end
+    end
+
     context "with conversation history" do
       let(:history) do
         [

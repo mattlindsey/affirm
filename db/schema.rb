@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_10_152546) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_11_205311) do
   create_table "affirmations", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
@@ -22,6 +22,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_10_152546) do
   create_table "conversations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "use_positive_psychology", default: false, null: false
     t.integer "user_id", null: false
     t.index ["user_id", "updated_at"], name: "index_conversations_on_user_id_and_updated_at"
     t.index ["user_id"], name: "index_conversations_on_user_id"

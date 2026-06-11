@@ -122,6 +122,56 @@ RSpec.describe Conversations::SendMessageService do
     end
   end
 
+  describe "positive psychology flag" do
+    context "when use_positive_psychology: true is passed on a new conversation" do
+      subject(:result) do
+        stub_llm_success
+        described_class.call(user:, message: "Hello", use_positive_psychology: true)
+      end
+
+      it "creates the conversation with use_positive_psychology set" do
+        expect(result.conversation.use_positive_psychology).to be true
+      end
+
+      it "passes use_positive_psychology: true to Chat::ReplyService" do
+        result
+        expect(Chat::ReplyService).to have_received(:call).with(
+          hash_including(use_positive_psychology: true)
+        )
+      end
+    end
+
+    context "when use_positive_psychology is not passed" do
+      subject(:result) do
+        stub_llm_success
+        described_class.call(user:, message: "Hello")
+      end
+
+      it "creates the conversation with use_positive_psychology false" do
+        expect(result.conversation.use_positive_psychology).to be false
+      end
+
+      it "passes use_positive_psychology: false to Chat::ReplyService" do
+        result
+        expect(Chat::ReplyService).to have_received(:call).with(
+          hash_including(use_positive_psychology: false)
+        )
+      end
+    end
+
+    context "when continuing a conversation that already has the flag set" do
+      let(:conversation) { create(:conversation, :positive_psychology, user:) }
+
+      it "passes use_positive_psychology: true to Chat::ReplyService" do
+        stub_llm_success
+        described_class.call(user:, message: "Follow-up", conversation:)
+        expect(Chat::ReplyService).to have_received(:call).with(
+          hash_including(use_positive_psychology: true)
+        )
+      end
+    end
+  end
+
   describe "messages_for_llm cap" do
     let(:conversation) { create(:conversation, user:) }
 

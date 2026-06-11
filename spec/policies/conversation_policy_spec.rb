@@ -27,6 +27,16 @@ RSpec.describe ConversationPolicy, type: :policy do
     end
   end
 
+  describe "#update?" do
+    it "allows the owner" do
+      expect(described_class.new(user, conversation).update?).to be true
+    end
+
+    it "denies a different user" do
+      expect(described_class.new(other, conversation).update?).to be false
+    end
+  end
+
   describe "#destroy?" do
     it "allows the owner" do
       expect(described_class.new(user, conversation).destroy?).to be true
