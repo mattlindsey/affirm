@@ -92,6 +92,45 @@ RSpec.describe "Conversations", type: :request do
     end
   end
 
+  describe "DELETE /conversations/:id (destroy)" do
+    let(:conversation) { create(:conversation, user:) }
+
+    context "when unauthenticated" do
+      it "redirects to login" do
+        delete conversation_path(conversation)
+        expect(response).to redirect_to(login_path)
+      end
+    end
+
+    context "when authenticated as the owner" do
+      before { sign_in(user) }
+
+      it "destroys the conversation" do
+        conversation
+        expect {
+          delete conversation_path(conversation)
+        }.to change { Conversation.count }.by(-1)
+      end
+
+      it "redirects to conversations index" do
+        delete conversation_path(conversation)
+        expect(response).to redirect_to(conversations_path)
+      end
+    end
+
+    context "when authenticated as a different user" do
+      before { sign_in(other) }
+
+      it "returns 404 and does not destroy the conversation" do
+        conversation
+        expect {
+          delete conversation_path(conversation)
+        }.not_to change { Conversation.count }
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
   describe "POST /conversations (create)" do
     context "when unauthenticated" do
       it "redirects to login" do

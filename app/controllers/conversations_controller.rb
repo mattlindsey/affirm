@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  before_action :set_conversation, only: :show
+  before_action :set_conversation, only: %i[show destroy]
 
   def index
     authorize Conversation
@@ -26,6 +26,11 @@ class ConversationsController < ApplicationController
     else
       redirect_to conversations_path, alert: "Sorry, something went wrong. Please try again."
     end
+  end
+
+  def destroy
+    @conversation.destroy
+    redirect_to conversations_path
   end
 
   private
