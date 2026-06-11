@@ -8,14 +8,15 @@ module Conversations
       def success? = success
     end
 
-    def self.call(user:, message:, conversation: nil)
-      new(user:, message:, conversation:).call
+    def self.call(user:, message:, conversation: nil, use_positive_psychology: false)
+      new(user:, message:, conversation:, use_positive_psychology:).call
     end
 
-    def initialize(user:, message:, conversation: nil)
-      @user         = user
-      @message      = message
-      @conversation = conversation
+    def initialize(user:, message:, conversation: nil, use_positive_psychology: false)
+      @user                    = user
+      @message                 = message
+      @conversation            = conversation
+      @use_positive_psychology = use_positive_psychology
     end
 
     def call
@@ -23,7 +24,12 @@ module Conversations
       history = prior_history(active_conversation, user_message)
 
       api_key = @user.setting&.openai_api_key.presence
-      llm_result = Chat::ReplyService.call(message: @message, history:, api_key:)
+      llm_result = Chat::ReplyService.call(
+        message: @message,
+        history:,
+        api_key:,
+        use_positive_psychology: active_conversation.use_positive_psychology
+      )
 
       unless llm_result.success?
         return Result.new(success: false, conversation: active_conversation, error: llm_result.error)
@@ -48,7 +54,7 @@ module Conversations
 
     def persist_user_message
       ActiveRecord::Base.transaction do
-        conv = @conversation || @user.conversations.create!
+        conv = @conversation || @user.conversations.create!(use_positive_psychology: @use_positive_psychology)
         seed_intro(conv) if @conversation.nil?
         msg = conv.messages.create!(role: "user", content: @message)
         [ conv, msg ]

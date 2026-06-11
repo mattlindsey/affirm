@@ -49,7 +49,7 @@ Rails.application.routes.draw do
 
   get "checkins" => "checkins#index", as: :checkins
 
-  resources :conversations, only: %i[index show create destroy] do
+  resources :conversations, only: %i[index show create update destroy] do
     resources :messages, only: %i[create]
   end
 

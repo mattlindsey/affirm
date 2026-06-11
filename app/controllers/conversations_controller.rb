@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  before_action :set_conversation, only: %i[show destroy]
+  before_action :set_conversation, only: %i[show update destroy]
 
   def index
     authorize Conversation
@@ -15,8 +15,9 @@ class ConversationsController < ApplicationController
   def create
     authorize Conversation
     result = Conversations::SendMessageService.call(
-      user:    current_user,
-      message: params[:message].to_s.strip
+      user:                    current_user,
+      message:                 params[:message].to_s.strip,
+      use_positive_psychology: params[:use_positive_psychology] == "1"
     )
 
     if result.success?
@@ -26,6 +27,11 @@ class ConversationsController < ApplicationController
     else
       redirect_to conversations_path, alert: "Sorry, something went wrong. Please try again."
     end
+  end
+
+  def update
+    @conversation.update!(use_positive_psychology: true)
+    redirect_to conversation_path(@conversation)
   end
 
   def destroy
