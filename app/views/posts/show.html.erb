@@ -1,0 +1,12 @@
+<div class="max-w-3xl mx-auto p-6">
+  <%= link_to "← All Posts", posts_path, class: "text-sm text-blue-600 hover:underline" %>
+
+  <article class="mt-6">
+    <h1 class="text-4xl font-bold text-gray-800 mb-2"><%= @post.title %></h1>
+    <p class="text-sm text-gray-400 mb-8"><%= @post.published_at.strftime("%B %d, %Y") %></p>
+
+    <div class="prose prose-gray max-w-none">
+      <%= render_markdown(@post.body) %>
+    </div>
+  </article>
+</div>
