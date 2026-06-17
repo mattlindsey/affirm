@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_06_11_205311) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_17_165820) do
   create_table "affirmations", force: :cascade do |t|
     t.string "content"
     t.datetime "created_at", null: false
@@ -53,6 +53,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_11_205311) do
     t.integer "user_id"
     t.index ["created_at"], name: "index_mood_check_ins_on_created_at"
     t.index ["user_id"], name: "index_mood_check_ins_on_user_id"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "published_at"
+    t.string "slug"
+    t.string "title"
+    t.datetime "updated_at", null: false
   end
 
   create_table "reflections", force: :cascade do |t|

@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     resources :messages, only: %i[create]
   end
 
+  resources :posts, only: [ :index, :show ], param: :slug
   resources :affirmations, only: [ :index, :create, :destroy ]
   get "gratitude" => "gratitude#index", as: :gratitude
   get "gratitude/random" => "gratitude#random", as: :gratitude_random
