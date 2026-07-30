@@ -1,0 +1,59 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "CMD=$(cat | jq -r '.tool_input.command // empty') && if echo \"$CMD\" | grep -qiE '(rm\\s+-rf\\s+[/~]|DROP\\s+TABLE|DROP\\s+DATABASE|git\\s+push\\s+.*(-f|--force)\\s+.*(main|master|production)|chmod\\s+777)'; then echo 'Blocked: This command is potentially destructive. Please confirm with the user before proceeding.' >&2; exit 2; fi",
+            "timeout": 5,
+            "statusMessage": "Checking command safety..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "FILE=$(cat | jq -r '.tool_input.file_path // empty') && [ -n \"$FILE\" ] && [[ \"$FILE\" == *.rb ]] && bundle exec rubocop -a \"$FILE\" > /dev/null 2>&1 || true",
+            "timeout": 30,
+            "statusMessage": "Auto-formatting with RuboCop..."
+          },
+          {
+            "type": "command",
+            "command": "FILE=$(cat | jq -r '.tool_input.file_path // empty') && [ -n \"$FILE\" ] && [[ \"$FILE\" == *.erb ]] && bundle exec erblint --autocorrect \"$FILE\" > /dev/null 2>&1 || true",
+            "timeout": 30,
+            "statusMessage": "Auto-formatting ERB..."
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"Project: $(basename $(git rev-parse --show-toplevel 2>/dev/null || pwd)) | Branch: $(git branch --show-current 2>/dev/null || echo 'N/A') | Ruby: $(ruby -v 2>/dev/null | cut -d' ' -f2 || echo 'N/A') | Rails: $(bundle exec rails -v 2>/dev/null | cut -d' ' -f2 || echo 'N/A') | Pending migrations: $(bundle exec rails db:migrate:status 2>/dev/null | grep -c 'down' || echo '0')\"",
+            "timeout": 15,
+            "statusMessage": "Loading project context..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "osascript -e 'display notification \"Claude has finished responding\" with title \"Claude Code\"' 2>/dev/null || true",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
