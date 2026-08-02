@@ -5,37 +5,34 @@
   .chat-msg.assistant { margin-right: auto; background: #f1f5f9; color: #0f172a; }
 </style>
 
-<div class="flex gap-4 max-w-5xl mx-auto p-6">
+<div class="flex gap-4 max-w-5xl mx-auto p-0 md:p-6"
+     data-controller="sidebar"
+     data-action="keydown@window->sidebar#closeOnEscape">
+
   <% if @conversations.any? %>
-    <nav id="conversation-sidebar" class="w-56 shrink-0">
-      <div class="flex items-center justify-between mb-3">
-        <h2 class="text-sm font-semibold text-gray-600 uppercase tracking-wide">Conversations</h2>
-        <%= link_to "New convo", conversations_path, class: "text-xs px-2 py-1 bg-sky-600 text-white font-semibold rounded-lg hover:bg-sky-700 transition" %>
-      </div>
-      <ul class="space-y-1">
-        <% @conversations.each do |conv| %>
-          <li class="flex items-center gap-1 group">
-            <%= link_to conversation_path(conv), class: "flex-1 min-w-0 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-gray-100 transition" do %>
-              <span class="text-xs text-gray-400"><%= conv.updated_at.in_time_zone.strftime("%-m/%-d %-I:%M %p") %></span>
-              <span class="block truncate"><%= conv.first_user_message %></span>
-            <% end %>
-            <%= button_to conversation_path(conv),
-                          method: :delete,
-                          form: { data: { turbo_confirm: "Delete this conversation?" } },
-                          class: "opacity-0 group-hover:opacity-100 shrink-0 px-1.5 py-1 text-gray-400 hover:text-red-500 transition rounded" do %>
-              &#x2715;
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    </nav>
+    <%= render "conversations/sidebar", conversations: @conversations %>
   <% end %>
 
   <div class="flex-1 min-w-0">
     <%= form_with url: conversations_path,
                   data: { controller: "conversation", action: "submit->conversation#disableSend turbo:submit-end->conversation#enableSend" } do |f| %>
-      <div class="flex items-center gap-4 mb-4">
-        <h1 class="text-2xl font-bold text-gray-800">Wellness Coach Chat</h1>
+      <div class="flex items-center gap-3 mb-4">
+        <% if @conversations.any? %>
+          <button type="button"
+                  data-sidebar-target="toggle"
+                  data-action="sidebar#toggle"
+                  class="md:hidden shrink-0 p-2 -ml-1 rounded-lg text-gray-600 hover:bg-gray-100 transition"
+                  aria-controls="conversation-sidebar"
+                  aria-expanded="false"
+                  aria-label="Show conversations">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        <% end %>
+
+        <h1 class="text-xl md:text-2xl font-bold text-gray-800">Wellness Coach Chat</h1>
+
         <div class="flex items-center gap-2">
           <%= f.check_box :use_positive_psychology,
                           class: "w-4 h-4 accent-sky-600 cursor-pointer" %>
@@ -44,7 +41,7 @@
         </div>
       </div>
 
-      <div class="bg-white rounded-xl shadow flex flex-col" style="height: 520px;">
+      <div class="bg-white rounded-xl shadow flex flex-col h-[65vh] md:h-[520px]">
         <div class="flex-1 overflow-auto px-4 py-4">
           <div class="chat-msg assistant">
             <p><%= Conversations::SendMessageService::INTRO_MESSAGE %></p>
@@ -57,10 +54,10 @@
                              placeholder: "What's on your mind?",
                              autocomplete: "off",
                              data: { conversation_target: "input" },
-                             class: "flex-1 px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300" %>
+                             class: "flex-1 min-w-0 px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-sky-300" %>
             <%= f.submit "Send",
                          data: { conversation_target: "sendBtn" },
-                         class: "px-4 py-2 bg-sky-600 text-white rounded-lg font-semibold hover:bg-sky-700 transition" %>
+                         class: "shrink-0 px-4 py-2 bg-sky-600 text-white rounded-lg font-semibold hover:bg-sky-700 transition" %>
           </div>
         </div>
       </div>
