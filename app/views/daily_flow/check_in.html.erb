@@ -1,28 +1,5 @@
 <div class="max-w-4xl mx-auto p-6">
-  <!-- Progress Indicator -->
-  <div class="mb-8">
-    <div class="flex items-center justify-center space-x-2 mb-4">
-      <div class="flex items-center">
-        <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold">1</div>
-        <span class="ml-2 text-sm font-medium text-blue-600">Check-In</span>
-      </div>
-      <div class="w-12 h-0.5 bg-gray-300"></div>
-      <div class="flex items-center">
-        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-semibold">2</div>
-        <span class="ml-2 text-sm font-medium text-gray-400">Affirmation</span>
-      </div>
-      <div class="w-12 h-0.5 bg-gray-300"></div>
-      <div class="flex items-center">
-        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-semibold">3</div>
-        <span class="ml-2 text-sm font-medium text-gray-400">Gratitude</span>
-      </div>
-      <div class="w-12 h-0.5 bg-gray-300"></div>
-      <div class="flex items-center">
-        <div class="w-8 h-8 bg-gray-300 text-gray-600 rounded-full flex items-center justify-center font-semibold">4</div>
-        <span class="ml-2 text-sm font-medium text-gray-400">Reflect</span>
-      </div>
-    </div>
-  </div>
+  <%= render "daily_flow/progress_steps", current_step: 1 %>
 
   <!-- Welcome Header -->
   <div class="text-center mb-8">
@@ -46,20 +23,20 @@
           <label class="block text-lg font-medium text-gray-700 mb-2">
             Rate your mood (1-10)
           </label>
-          <div class="flex items-center justify-center space-x-2 mb-4">
-            <span class="text-2xl">😢</span>
-            <input 
-              type="range" 
-              name="mood_check_in[mood_level]" 
-              min="1" 
-              max="10" 
-              value="5" 
-              class="w-64 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
+          <div class="flex items-center justify-center gap-2 mb-4">
+            <span class="text-2xl shrink-0">😢</span>
+            <input
+              type="range"
+              name="mood_check_in[mood_level]"
+              min="1"
+              max="10"
+              value="5"
+              class="w-full max-w-64 min-w-0 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer slider"
               id="mood-slider"
             />
-            <span class="text-2xl">😄</span>
+            <span class="text-2xl shrink-0">😄</span>
           </div>
-          <div class="flex justify-between text-sm text-gray-500 w-64 mx-auto">
+          <div class="flex justify-between text-sm text-gray-500 w-full max-w-64 mx-auto">
             <span>1</span>
             <span>2</span>
             <span>3</span>
@@ -93,8 +70,8 @@
       </div>
 
       <!-- Navigation Buttons -->
-      <div class="flex justify-between items-center pt-6">
-        <%= link_to "← Exit Workflow", root_path, 
+      <div class="flex flex-col sm:flex-row sm:justify-between items-center gap-4 pt-6">
+        <%= link_to "← Exit Workflow", root_path,
             class: "inline-block bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
         <%= form.submit "Next: Affirmation →", 
             class: "inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>

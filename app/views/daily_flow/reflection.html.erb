@@ -1,28 +1,5 @@
 <div class="max-w-4xl mx-auto p-6">
-  <!-- Progress Indicator -->
-  <div class="mb-8">
-    <div class="flex items-center justify-center space-x-2 mb-4">
-      <div class="flex items-center">
-        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
-        <span class="ml-2 text-sm font-medium text-green-600">Check-In</span>
-      </div>
-      <div class="w-12 h-0.5 bg-green-500"></div>
-      <div class="flex items-center">
-        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
-        <span class="ml-2 text-sm font-medium text-green-600">Affirmation</span>
-      </div>
-      <div class="w-12 h-0.5 bg-green-500"></div>
-      <div class="flex items-center">
-        <div class="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center">✓</div>
-        <span class="ml-2 text-sm font-medium text-green-600">Gratitude</span>
-      </div>
-      <div class="w-12 h-0.5 bg-green-500"></div>
-      <div class="flex items-center">
-        <div class="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold">4</div>
-        <span class="ml-2 text-sm font-medium text-blue-600">Reflect</span>
-      </div>
-    </div>
-  </div>
+  <%= render "daily_flow/progress_steps", current_step: 4 %>
 
   <!-- Reflection Section -->
   <div class="text-center mb-8">
@@ -70,8 +47,8 @@
     </div>
 
     <!-- Navigation Buttons -->
-    <div class="flex justify-between items-center pt-6">
-      <%= link_to "← Back", daily_flow_gratitude_path, 
+    <div class="flex flex-col sm:flex-row sm:justify-between items-center gap-4 pt-6">
+      <%= link_to "← Back", daily_flow_gratitude_path,
           class: "inline-block bg-gray-500 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
       <%= form.submit "Complete Workflow →", 
           class: "inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>

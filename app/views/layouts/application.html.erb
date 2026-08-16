@@ -26,7 +26,9 @@
 
   <body>
     <!-- Navigation Header -->
-    <nav class="bg-white shadow-md fixed top-0 w-full z-50">
+    <nav class="bg-white shadow-md fixed top-0 w-full z-50"
+         data-controller="mobile-nav"
+         data-action="keydown@window->mobile-nav#closeOnEscape">
       <div class="container mx-auto px-5 py-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center space-x-8">
@@ -46,15 +48,46 @@
           </div>
           <div class="flex items-center space-x-4">
             <% if user_signed_in? %>
-              <%= link_to "Settings", settings_path, class: "text-gray-700 hover:text-blue-600 transition" %>
-              <%= button_to "Sign out", logout_path, method: :delete,
-                    class: "text-sm text-gray-700 hover:text-red-600 transition font-medium" %>
+              <div class="hidden md:flex md:items-center md:space-x-4">
+                <%= link_to "Settings", settings_path, class: "text-gray-700 hover:text-blue-600 transition" %>
+                <%= button_to "Sign out", logout_path, method: :delete,
+                      class: "text-sm text-gray-700 hover:text-red-600 transition font-medium" %>
+              </div>
+              <button type="button"
+                      data-action="mobile-nav#toggle"
+                      data-mobile-nav-target="button"
+                      class="md:hidden p-2 -mr-2 rounded-lg text-gray-600 hover:bg-gray-100 transition"
+                      aria-controls="mobile-nav-menu"
+                      aria-expanded="false"
+                      aria-label="Toggle menu">
+                <svg data-mobile-nav-target="openIcon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg data-mobile-nav-target="closeIcon" class="hidden w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             <% else %>
               <%= link_to "Sign in",  login_path,  class: "text-gray-700 hover:text-blue-600 transition" %>
               <%= link_to "Sign up",  signup_path, class: "bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition" %>
             <% end %>
           </div>
         </div>
+
+        <% if user_signed_in? %>
+          <div id="mobile-nav-menu" data-mobile-nav-target="menu" class="hidden md:hidden pt-3 pb-1 space-y-1 border-t border-gray-100 mt-3">
+            <%= link_to "Daily Workflow", daily_flow_start_path, class: "block px-2 py-2 rounded-lg text-gray-700 hover:bg-gray-100 font-semibold transition" %>
+            <%= link_to "Check-ins", checkins_path, class: "block px-2 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition" %>
+            <%= link_to "Affirmations", affirmations_path, class: "block px-2 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition" %>
+            <%= link_to "Gratitudes", gratitude_path, class: "block px-2 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition" %>
+            <%= link_to "Reflections", reflections_path, class: "block px-2 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition" %>
+            <%= link_to "Blog", posts_path, class: "block px-2 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition" %>
+            <div class="border-t border-gray-100 my-1"></div>
+            <%= link_to "Settings", settings_path, class: "block px-2 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition" %>
+            <%= button_to "Sign out", logout_path, method: :delete,
+                  class: "w-full text-left px-2 py-2 rounded-lg text-gray-700 hover:bg-gray-100 transition font-medium" %>
+          </div>
+        <% end %>
       </div>
     </nav>
 

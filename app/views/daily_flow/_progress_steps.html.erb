@@ -1,0 +1,39 @@
+<%#
+  Daily-flow progress stepper, shared by every step of the workflow.
+
+  Locals:
+    current_step - 1-4 for the step in progress, 5 once the whole flow is complete
+%>
+<% steps = ["Check-In", "Affirmation", "Gratitude", "Reflect"] %>
+<% current_label_index = [current_step, steps.size].min - 1 %>
+
+<nav aria-label="Daily workflow progress" class="mb-8">
+  <ol class="flex items-center justify-center">
+    <% steps.each_with_index do |label, index| %>
+      <% step_number = index + 1 %>
+      <% completed = step_number < current_step %>
+      <% active = step_number == current_step %>
+      <li class="flex items-center">
+        <div class="flex items-center">
+          <div class="w-8 h-8 shrink-0 rounded-full flex items-center justify-center font-semibold <%= completed ? "bg-green-500 text-white" : active ? "bg-blue-600 text-white" : "bg-gray-300 text-gray-600" %>">
+            <%= completed ? "✓" : step_number %>
+          </div>
+          <span class="ml-2 hidden sm:inline text-sm font-medium <%= completed ? "text-green-600" : active ? "text-blue-600" : "text-gray-400" %>">
+            <%= label %>
+          </span>
+        </div>
+        <% unless step_number == steps.size %>
+          <div class="w-6 sm:w-12 h-0.5 mx-1 sm:mx-2 <%= completed ? "bg-green-500" : "bg-gray-300" %>"></div>
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+
+  <p class="sm:hidden text-center text-sm font-medium text-gray-600 mt-2">
+    <% if current_step > steps.size %>
+      All steps complete! 🎉
+    <% else %>
+      Step <%= current_step %> of <%= steps.size %> &middot; <%= steps[current_label_index] %>
+    <% end %>
+  </p>
+</nav>
