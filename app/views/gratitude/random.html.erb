@@ -9,7 +9,7 @@
   </div>
   
   <% if @gratitude %>
-    <div class="bg-gradient-to-br from-green-50 to-emerald-100 border-2 border-green-200 p-12 rounded-2xl shadow-lg text-center">
+    <div class="bg-gradient-to-br from-green-50 to-emerald-100 border-2 border-green-200 p-6 sm:p-12 rounded-2xl shadow-lg text-center">
       <div class="max-w-2xl mx-auto">
         <p class="text-3xl font-medium text-gray-800 leading-relaxed mb-6 italic">
           "<%= @gratitude.content %>"
@@ -18,7 +18,7 @@
           Created: <%= @gratitude.created_at.strftime("%B %d, %Y") %>
         </small>
         
-        <div class="flex justify-center gap-4">
+        <div class="flex flex-wrap justify-center gap-4">
           <%= link_to "Get Another", gratitude_random_path, 
               class: "bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-200" %>
           <%= link_to "View All", gratitude_path, 
