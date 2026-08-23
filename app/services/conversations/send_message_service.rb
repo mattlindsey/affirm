@@ -32,7 +32,7 @@ module Conversations
       )
 
       unless llm_result.success?
-        return Result.new(success: false, conversation: active_conversation, error: llm_result.error)
+        return Result.new(success: false, conversation: active_conversation, user_message:, error: llm_result.error)
       end
 
       assistant_message = active_conversation.messages.create!(role: "assistant", content: llm_result.reply)

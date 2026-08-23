@@ -1,9 +1,4 @@
-<style>
-  .chat-msg { display: block; padding: 10px 14px; margin: 8px 0; max-width: 85%; border-radius: 14px; }
-  .chat-msg p { margin: 0; white-space: pre-wrap; }
-  .chat-msg.user { margin-left: auto; background: #0ea5e9; color: #fff; }
-  .chat-msg.assistant { margin-right: auto; background: #f1f5f9; color: #0f172a; }
-</style>
+<%= render "conversations/chat_styles" %>
 
 <div class="flex gap-4 max-w-5xl mx-auto p-0 md:p-6"
      data-controller="sidebar"
@@ -44,7 +39,7 @@
 
       <div class="border-t px-4 py-3 bg-white rounded-b-xl">
         <%= form_with url: conversation_messages_path(@conversation),
-                      data: { controller: "conversation", action: "submit->conversation#disableSend turbo:submit-end->conversation#enableSend" },
+                      data: { controller: "conversation", action: "turbo:submit-start->conversation#start turbo:submit-end->conversation#finish" },
                       class: "flex gap-2" do |f| %>
           <%= f.text_field :message,
                            placeholder: "Type a message…",

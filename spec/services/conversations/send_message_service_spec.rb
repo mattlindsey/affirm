@@ -120,6 +120,10 @@ RSpec.describe Conversations::SendMessageService do
     it "includes the error message" do
       expect(result.error).to eq("LLM unavailable")
     end
+
+    it "returns the persisted user message so the view can keep it on screen" do
+      expect(result.user_message.content).to eq("Help me")
+    end
   end
 
   describe "positive psychology flag" do
