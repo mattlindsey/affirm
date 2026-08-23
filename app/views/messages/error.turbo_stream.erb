@@ -1,0 +1,6 @@
+<%# The reply failed, but the message was saved — swap the optimistic bubble for the real one. %>
+<%= turbo_stream.remove "pending_message" %>
+<% if @user_message %>
+  <%= turbo_stream.append "messages", partial: "conversations/message", locals: { message: @user_message } %>
+<% end %>
+<%= turbo_stream.append "messages", partial: "conversations/error", locals: { message: error_message } %>

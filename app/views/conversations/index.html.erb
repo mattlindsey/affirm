@@ -1,9 +1,4 @@
-<style>
-  .chat-msg { display: block; padding: 10px 14px; margin: 8px 0; max-width: 85%; border-radius: 14px; }
-  .chat-msg p { margin: 0; white-space: pre-wrap; }
-  .chat-msg.user { margin-left: auto; background: #0ea5e9; color: #fff; }
-  .chat-msg.assistant { margin-right: auto; background: #f1f5f9; color: #0f172a; }
-</style>
+<%= render "conversations/chat_styles" %>
 
 <div class="flex gap-4 max-w-5xl mx-auto p-0 md:p-6"
      data-controller="sidebar"
@@ -15,7 +10,7 @@
 
   <div class="flex-1 min-w-0">
     <%= form_with url: conversations_path,
-                  data: { controller: "conversation", action: "submit->conversation#disableSend turbo:submit-end->conversation#enableSend" } do |f| %>
+                  data: { controller: "conversation", action: "turbo:submit-start->conversation#start turbo:submit-end->conversation#finish" } do |f| %>
       <div class="flex items-center gap-3 mb-4">
         <% if @conversations.any? %>
           <button type="button"
@@ -42,7 +37,7 @@
       </div>
 
       <div class="bg-white rounded-xl shadow flex flex-col h-[65vh] md:h-[520px]">
-        <div class="flex-1 overflow-auto px-4 py-4">
+        <div id="messages" class="flex-1 overflow-auto px-4 py-4">
           <div class="chat-msg assistant">
             <p><%= Conversations::SendMessageService::INTRO_MESSAGE %></p>
           </div>

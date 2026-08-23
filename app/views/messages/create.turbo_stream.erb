@@ -1,2 +1,4 @@
+<%# Drops the placeholder bubble that conversation_controller.js rendered optimistically. %>
+<%= turbo_stream.remove "pending_message" %>
 <%= turbo_stream.append "messages", partial: "conversations/message", locals: { message: @user_message } %>
 <%= turbo_stream.append "messages", partial: "conversations/message", locals: { message: @assistant_message } %>
